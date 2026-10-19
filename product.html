@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rental Outfit Details | POSHAKH Royal Couture</title>
+  <meta name="description" content="Rent authentic designer bridal and ethnic outfits with secure rental date selection and refundable deposit.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .product-detail-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 3.5rem;
+      padding: 7rem 0 5rem;
+    }
+
+    .gallery-stage {
+      position: sticky;
+      top: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .main-image-viewport {
+      width: 100%;
+      height: 600px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      background: #120A0C;
+      perspective: 1000px;
+    }
+
+    .main-detail-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s var(--ease-luxury), opacity 0.3s ease;
+      cursor: zoom-in;
+    }
+
+    .thumbnails-strip {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+    }
+
+    .thumb-btn {
+      width: 90px;
+      height: 120px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .thumb-btn.active, .thumb-btn:hover {
+      border-color: var(--gold-antique);
+      transform: scale(1.05);
+    }
+
+    .thumb-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .rental-booking-card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-gold);
+      padding: 2.2rem;
+      box-shadow: var(--shadow-sm);
+      margin-top: 1.8rem;
+    }
+
+    .date-picker-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .price-breakdown-box {
+      background: #FAF5EB;
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      margin: 1.4rem 0;
+      border: 1px dashed var(--border-gold);
+    }
+
+    .price-breakdown-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      margin-bottom: 0.4rem;
+      color: var(--text-charcoal);
+    }
+
+    .price-breakdown-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--wine-deep);
+      border-top: 1px solid #E0D6C3;
+      padding-top: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .specs-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+    }
+
+    .specs-list li {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .specs-label {
+      min-width: 130px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.8px;
+    }
+
+    @media (max-width: 992px) {
+      .product-detail-layout {
+        grid-template-columns: 1fr;
+        padding-top: 5rem;
+      }
+      .gallery-stage {
+        position: relative;
+        top: 0;
+      }
+      .main-image-viewport {
+        height: 440px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Navbar Placeholder -->
+  <div id="poshakh-nav-header"></div>
+
+  <div class="container">
+    <div class="product-detail-layout" id="product-page-content">
+      <!-- Loading placeholder -->
+      <div style="grid-column: 1 / -1; text-align: center; padding: 4rem;">
+        <p style="font-size: 1.2rem; color: var(--gold-antique);">Loading Royal Ensemble...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/ui-effects.js"></script>
+  <script>
+    let currentDress = null;
+    let selectedSize = '';
+    let selectedDays = 3;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const dressId = urlParams.get('id') || 'd1';
+
+      currentDress = PoshakhStore.getDressById(dressId);
+      if (!currentDress) {
+        currentDress = PoshakhStore.getDresses()[0];
+      }
+
+      selectedSize = currentDress.sizes[0];
+      renderProductPage();
+    });
+
+    function renderProductPage() {
+      const container = document.getElementById('product-page-content');
+      if (!container || !currentDress) return;
+
+      // Default rental dates: Tomorrow to 3 days after
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const returnDate = new Date();
+      returnDate.setDate(tomorrow.getDate() + 3);
+
+      const startDateStr = tomorrow.toISOString().split('T')[0];
+      const endDateStr = returnDate.toISOString().split('T')[0];
+
+      container.innerHTML = `
+        <!-- LEFT: 3D INTERACTIVE GALLERY -->
+        <div class="gallery-stage">
+          <div class="main-image-viewport card-tilt-3d" id="viewport-3d">
+            <img src="${currentDress.images[0]}" alt="${currentDress.name}" class="main-detail-img" id="detail-main-img">
+            <span class="badge badge-gold" style="position: absolute; top: 1.2rem; left: 1.2rem; z-index: 2;">${currentDress.occasion}</span>
+          </div>
+
+          <!-- Thumbnails -->
+          <div class="thumbnails-strip">
+            ${currentDress.images.map((imgUrl, i) => `
+              <div class="thumb-btn ${i === 0 ? 'active' : ''}" onclick="switchDetailImage('${imgUrl}', this)">
+                <img src="${imgUrl}" alt="Angle ${i + 1}">
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Trust Badges -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+            <div style="background: #fff; padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); display: flex; align-items: center; gap: 0.8rem;">
+              <span style="font-size: 1.6rem;">🧼</span>
+              <div>
+                <strong style="font-size: 0.82rem; display: block; color: var(--wine-deep);">Hospital-Grade Cleaned</strong>
+                <span style="font-size: 0.74rem; color: #777;">Steam sanitised before dispatch</span>
+              </div>
+            </div>
+            <div style="background: #fff; padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); display: flex; align-items: center; gap: 0.8rem;">
+              <span style="font-size: 1.6rem;">✨</span>
+              <div>
+                <strong style="font-size: 0.82rem; display: block; color: var(--wine-deep);">Custom Fitting Ready</strong>
+                <span style="font-size: 0.74rem; color: #777;">3" extra margins & dori loops</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: PRODUCT DETAILS & RENTAL CALCULATOR -->
+        <div>
+          <!-- Lender Badge (Dynamic) -->
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; background: #fff; padding: 0.8rem 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <div style="display: flex; align-items: center; gap: 0.8rem;">
+              <img src="${(PoshakhStore.getLenderById(currentDress.lenderId) || {}).avatar || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80'}" alt="${currentDress.lenderName}" style="width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--gold-antique); object-fit: cover;">
+              <div>
+                <a href="lender-profile.html?lender=${currentDress.lenderId}" style="font-size: 0.88rem; font-weight: 700; color: var(--wine-deep); text-decoration: underline;">
+                  ${currentDress.lenderName}
+                </a>
+                <div style="font-size: 0.74rem; color: #777;">★ ${currentDress.rating} (${currentDress.reviewsCount} rentals) &bull; Verified Boutique</div>
+              </div>
+            </div>
+            ${currentUser && (currentUser.lenderId === currentDress.lenderId || (currentDress.lenderEmail && currentUser.email.toLowerCase() === currentDress.lenderEmail.toLowerCase())) ? `
+              <a href="manage-dresses.html" class="btn btn-outline" style="padding: 0.45rem 1rem; font-size: 0.75rem;">
+                ✏️ Manage My Outfit
+              </a>
+            ` : `
+              <a href="chat.html?lender=${currentDress.lenderId}&dressId=${currentDress.id}" onclick="handleProductChatClick(event, '${currentDress.lenderId}', '${currentDress.id}')" class="btn btn-outline" style="padding: 0.45rem 1rem; font-size: 0.75rem;">
+                💬 Negotiate
+              </a>
+            `}
+          </div>
+
+          <span class="eyebrow">${currentDress.category} &bull; ${currentDress.subCategory || 'Royal Edition'}</span>
+          <h1 style="font-size: 2.2rem; color: var(--wine-deep); margin-bottom: 0.8rem;">${currentDress.name}</h1>
+          
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.7;">
+            ${currentDress.description}
+          </p>
+
+          <!-- Specifications -->
+          <div style="background: #fff; border-radius: var(--radius-md); padding: 1.4rem; border: 1px solid var(--border-subtle); margin-bottom: 1.5rem;">
+            <h4 style="font-size: 0.88rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-antique); margin-bottom: 0.8rem;">Garment Details</h4>
+            <ul class="specs-list">
+              <li><span class="specs-label">Fabric:</span> <span>${currentDress.fabric}</span></li>
+              <li><span class="specs-label">Retail Value:</span> <span style="font-weight: 600;">₹${currentDress.retailValue.toLocaleString()}</span></li>
+              <li><span class="specs-label">Included Pieces:</span> <span>Outfit, Matching Stole/Dupatta, Protective Travel Trunk</span></li>
+              <li><span class="specs-label">Security Deposit:</span> <span style="color: var(--wine-deep); font-weight: 600;">₹${currentDress.deposit.toLocaleString()} (100% Refundable)</span></li>
+            </ul>
+          </div>
+
+          <!-- Size Selector -->
+          <div style="margin-bottom: 1.5rem;">
+            <label class="form-label">Select Your Fit (Chest / Waist Inches)</label>
+            <div style="display: flex; gap: 0.8rem;">
+              ${currentDress.sizes.map(s => `
+                <button type="button" class="badge ${s === selectedSize ? 'badge-crimson' : 'badge-gold'}" style="padding: 0.6rem 1.4rem; font-size: 0.85rem; cursor: pointer;" onclick="selectFitSize('${s}', this)">
+                  ${s}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- RENTAL RESERVATION BOX (CALCULATOR) -->
+          <div class="rental-booking-card">
+            <h3 style="font-size: 1.2rem; color: var(--wine-deep); margin-bottom: 1.2rem; display: flex; align-items: center; justify-content: space-between;">
+              <span>Reserve Rental Dates</span>
+              <span style="font-size: 1.25rem; font-weight: 700; color: var(--wine-deep);">
+                ₹${currentDress.rentPrice.toLocaleString()} <span style="font-size: 0.75rem; color: #777; font-weight: 400;">/ day</span>
+              </span>
+            </h3>
+
+            <div class="date-picker-row">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Rental Start Date</label>
+                <input type="date" id="rental-start" class="form-input" value="${startDateStr}" onchange="recalculatePrice()">
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Return Date</label>
+                <input type="date" id="rental-end" class="form-input" value="${endDateStr}" onchange="recalculatePrice()">
+              </div>
+            </div>
+
+            <!-- Price Breakdown Calculation -->
+            <div class="price-breakdown-box">
+              <div class="price-breakdown-line">
+                <span>Rental Period (<span id="calc-days">3</span> days &times; ₹${currentDress.rentPrice.toLocaleString()})</span>
+                <span id="calc-rent-subtotal">₹${(3 * currentDress.rentPrice).toLocaleString()}</span>
+              </div>
+              <div class="price-breakdown-line">
+                <span>Refundable Security Deposit</span>
+                <span>₹${currentDress.deposit.toLocaleString()}</span>
+              </div>
+              <div class="price-breakdown-line">
+                <span>Dry Cleaning & Luxury Packaging</span>
+                <span style="color: #2e7d32; font-weight: 600;">FREE (Complimentary)</span>
+              </div>
+              <div class="price-breakdown-total">
+                <span>Total Amount Due:</span>
+                <span id="calc-total-payable">₹${(3 * currentDress.rentPrice + currentDress.deposit).toLocaleString()}</span>
+              </div>
+              <p style="font-size: 0.74rem; color: #777; margin-top: 0.5rem; text-align: right;">
+                *₹${currentDress.deposit.toLocaleString()} security deposit is returned automatically to your source account within 24h of return pickup.
+              </p>
+            </div>
+
+            <!-- Proceed to Checkout Button -->
+            <button onclick="proceedToRentalCheckout()" class="btn-ribbon" style="width: 100%; padding: 1.1rem; font-size: 0.95rem; text-align: center; justify-content: center; clip-path: none; border-radius: var(--radius-pill);">
+              PROCEED TO RENT &bull; ENTER ADDRESS
+            </button>
+          </div>
+
+        </div>
+      `;
+
+      setTimeout(() => {
+        PoshakhEffects.init3DTilt();
+      }, 200);
+    }
+
+    function switchDetailImage(src, element) {
+      const img = document.getElementById('detail-main-img');
+      if (!img) return;
+      img.style.opacity = '0.2';
+      img.style.transform = 'scale(0.97) rotateY(15deg)';
+      setTimeout(() => {
+        img.src = src;
+        img.style.opacity = '1';
+        img.style.transform = 'scale(1) rotateY(0deg)';
+      }, 200);
+
+      document.querySelectorAll('.thumb-btn').forEach(b => b.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    function selectFitSize(size, el) {
+      selectedSize = size;
+      document.querySelectorAll('#product-page-content .badge').forEach(b => {
+        b.classList.remove('badge-crimson');
+        b.classList.add('badge-gold');
+      });
+      el.classList.remove('badge-gold');
+      el.classList.add('badge-crimson');
+    }
+
+    function recalculatePrice() {
+      const startVal = document.getElementById('rental-start').value;
+      const endVal = document.getElementById('rental-end').value;
+
+      if (!startVal || !endVal) return;
+
+      const d1 = new Date(startVal);
+      const d2 = new Date(endVal);
+      const diffTime = d2.getTime() - d1.getTime();
+      let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays <= 0) {
+        diffDays = 1;
+        alert('Return date must be after rental start date.');
+      }
+
+      selectedDays = diffDays;
+      const rentSubtotal = selectedDays * currentDress.rentPrice;
+      const totalPayable = rentSubtotal + currentDress.deposit;
+
+      document.getElementById('calc-days').textContent = selectedDays;
+      document.getElementById('calc-rent-subtotal').textContent = `₹${rentSubtotal.toLocaleString()}`;
+      document.getElementById('calc-total-payable').textContent = `₹${totalPayable.toLocaleString()}`;
+    }
+
+    function proceedToRentalCheckout() {
+      const user = PoshakhStore.getCurrentUser();
+      const startVal = document.getElementById('rental-start').value;
+      const endVal = document.getElementById('rental-end').value;
+
+      const checkoutData = {
+        dressId: currentDress.id,
+        dressName: currentDress.name,
+        dressImage: currentDress.images[0],
+        dailyRent: currentDress.rentPrice,
+        deposit: currentDress.deposit,
+        durationDays: selectedDays,
+        totalRent: selectedDays * currentDress.rentPrice,
+        totalPaid: selectedDays * currentDress.rentPrice + currentDress.deposit,
+        startDate: startVal,
+        endDate: endVal,
+        selectedSize: selectedSize,
+        lenderId: currentDress.lenderId,
+        lenderName: currentDress.lenderName
+      };
+
+      sessionStorage.setItem('poshakh_checkout_item', JSON.stringify(checkoutData));
+      window.location.href = 'checkout.html';
+    }
+
+    function handleProductChatClick(e, lenderId, dressId) {
+      const currentUser = PoshakhStore.getCurrentUser();
+      if (!currentUser) {
+        e.preventDefault();
+        alert('Please sign in to message or negotiate with this royal boutique.');
+        window.location.href = `login.html?redirect=chat.html?lender=${lenderId}&dressId=${dressId}`;
+      }
+    }
+  </script>
+</body>
+</html>

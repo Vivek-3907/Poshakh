@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radha Ethnic House (@radha_poshakh) | POSHAKH Royal Boutique</title>
+  <meta name="description" content="Explore handcrafted royal Gujarati Patola sarees, bridal lehengas, and heritage sherwanis from Radha Ethnic House on Poshakh.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .insta-profile-layout {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 7rem 1.5rem 5rem;
+    }
+
+    .profile-header-grid {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    .profile-avatar-lg {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--gold-antique);
+      padding: 4px;
+      background: #fff;
+      box-shadow: var(--shadow-md);
+    }
+
+    .profile-stats-row {
+      display: flex;
+      gap: 2.5rem;
+      margin: 1.2rem 0;
+    }
+
+    .profile-stat-item {
+      font-size: 0.95rem;
+    }
+
+    .profile-stat-item strong {
+      font-size: 1.15rem;
+      color: var(--wine-deep);
+    }
+
+    @media (max-width: 768px) {
+      .profile-header-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .profile-avatar-lg {
+        margin: 0 auto;
+      }
+      .profile-stats-row {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Navbar Placeholder -->
+  <div id="poshakh-nav-header"></div>
+
+  <div class="insta-profile-layout">
+    
+    <!-- 1. INSTAGRAM-STYLE HEADER -->
+    <div class="instagram-profile-header">
+      <div class="profile-header-grid">
+        <!-- Avatar with Camera Badge for Owner -->
+        <div style="position: relative; display: inline-block; width: 160px; height: 160px;">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" alt="Boutique Curator" class="profile-avatar-lg" id="lender-avatar">
+          <label for="boutique-dp-upload" id="boutique-dp-badge" style="display: none; position: absolute; bottom: 8px; right: 8px; background: var(--wine-deep); color: #fff; width: 34px; height: 34px; border-radius: 50%; align-items: center; justify-content: center; cursor: pointer; border: 2.5px solid #fff; box-shadow: 0 3px 8px rgba(0,0,0,0.3); font-size: 15px;" title="Change Boutique Profile Photo">
+            📷
+          </label>
+          <input type="file" id="boutique-dp-upload" accept="image/*" style="display: none;" onchange="handleBoutiqueDPUpload(this)">
+        </div>
+
+        <!-- Details & Stats -->
+        <div>
+          <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem;">
+            <h1 style="font-size: 1.8rem; color: var(--wine-deep);" id="lender-name">Radha Ethnic House</h1>
+            <span class="badge badge-gold" id="lender-verified-badge">✓ Verified Royal Boutique</span>
+          </div>
+
+          <div style="font-size: 0.95rem; color: #777; margin-bottom: 0.8rem;" id="lender-handle">
+            @radha_poshakh &bull; Ahmedabad, Gujarat
+          </div>
+
+          <!-- Stats: Posts, Followers, Rating (Dynamic - not hardcoded!) -->
+          <div class="profile-stats-row">
+            <div class="profile-stat-item">
+              <strong id="stat-posts">0</strong> Outfits
+            </div>
+            <div class="profile-stat-item">
+              <strong id="stat-followers">0</strong> Followers
+            </div>
+            <div class="profile-stat-item">
+              <strong style="color: var(--gold-antique);" id="stat-rating">★ 5.0</strong> <span id="stat-reviews" style="color: #777;">(0 Reviews)</span>
+            </div>
+          </div>
+
+          <!-- Bio -->
+          <p style="font-size: 0.9rem; color: var(--text-charcoal); line-height: 1.5; margin-bottom: 1.2rem;" id="lender-bio">
+            Curator of handcrafted Royal Gujarati Patola, Raw Silk Bridal Lehengas &amp; Heritage Sherwanis.
+          </p>
+
+          <!-- 1) Visitor Action Buttons (For Renters & other users) -->
+          <div id="visitor-actions" style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+            <a href="chat.html" id="lender-chat-link" onclick="handleVisitorChatClick(event)" class="btn btn-crimson" style="padding: 0.6rem 1.4rem; font-size: 0.8rem;">
+              💬 Message &amp; Negotiate
+            </a>
+            <button onclick="toggleFollow(this)" id="btn-follow" class="btn btn-outline" style="padding: 0.6rem 1.4rem; font-size: 0.8rem;">
+              + Follow Boutique
+            </button>
+            <button onclick="openRateModal()" class="btn btn-gold" style="padding: 0.6rem 1.4rem; font-size: 0.8rem;">
+              ★ Rate This Boutique
+            </button>
+          </div>
+
+          <!-- 2) Owner Action Buttons (When lender views their OWN boutique - Instagram style) -->
+          <div id="owner-actions" style="display: none; gap: 0.8rem; flex-wrap: wrap;">
+            <button onclick="openEditProfileModal()" class="btn btn-gold" style="padding: 0.6rem 1.4rem; font-size: 0.8rem;">
+              ✏️ Edit Boutique Profile
+            </button>
+            <button onclick="document.getElementById('boutique-dp-upload').click()" class="btn btn-outline" style="padding: 0.6rem 1.4rem; font-size: 0.8rem;">
+              📷 Change Boutique DP
+            </button>
+            <a href="manage-dresses.html" class="btn btn-crimson" style="padding: 0.6rem 1.4rem; font-size: 0.8rem;">
+              👗 Manage Outfits
+            </a>
+            <a href="lender-dashboard.html" class="btn btn-outline" style="padding: 0.6rem 1.4rem; font-size: 0.8rem;">
+              📊 Revenue Dashboard
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. INSTAGRAM-STYLE GRID TABS -->
+    <div style="display: flex; justify-content: center; gap: 2rem; border-bottom: 1px solid #ECE3D4; margin-bottom: 2rem;">
+      <button class="nav-link active" style="font-size: 0.82rem; font-weight: 700; padding-bottom: 0.8rem;">
+        📸 ALL OUTFITS GRID
+      </button>
+    </div>
+
+    <!-- 3. INSTAGRAM POSTS GRID -->
+    <div class="insta-grid" id="lender-insta-grid">
+      <!-- Populated by JS -->
+    </div>
+
+  </div>
+
+  <!-- EDIT BOUTIQUE PROFILE MODAL (FOR OWNER) -->
+  <div class="poshakh-modal-backdrop" id="edit-profile-modal">
+    <div class="poshakh-modal-dialog" style="max-width: 500px;">
+      <button class="modal-close-btn" onclick="closeEditProfileModal()">&times;</button>
+      <h2 style="font-size: 1.5rem; color: var(--wine-deep); margin-bottom: 0.3rem;">Edit Boutique Profile</h2>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+        Update your royal boutique brand name, bio story, and city location.
+      </p>
+
+      <form onsubmit="handleSaveBoutiqueProfile(event)">
+        <div class="form-group">
+          <label class="form-label">Boutique Brand Name</label>
+          <input type="text" id="edit-boutique-name" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Instagram Handle / Username</label>
+          <input type="text" id="edit-boutique-handle" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">City, State Location</label>
+          <input type="text" id="edit-boutique-location" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Boutique Bio &amp; Heritage Description</label>
+          <textarea id="edit-boutique-bio" class="form-textarea" rows="3" required></textarea>
+        </div>
+        <div style="display: flex; gap: 0.8rem; justify-content: flex-end; margin-top: 1.2rem;">
+          <button type="button" onclick="closeEditProfileModal()" class="btn btn-outline">Cancel</button>
+          <button type="submit" class="btn btn-gold">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- RATE LENDER MODAL -->
+  <div class="poshakh-modal-backdrop" id="rate-modal">
+    <div class="poshakh-modal-dialog" style="max-width: 480px; text-align: center;">
+      <button class="modal-close-btn" onclick="closeRateModal()">&times;</button>
+      <span style="font-size: 2.8rem;">⭐</span>
+      <h2 style="font-size: 1.5rem; color: var(--wine-deep); margin: 0.5rem 0 0.3rem;" id="rate-modal-title">Rate Boutique</h2>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+        Share your experience regarding garment cleanliness, fitting assistance, and timely pickup.
+      </p>
+
+      <form onsubmit="submitLenderRating(event)">
+        <!-- Star selection -->
+        <div style="font-size: 2rem; color: var(--gold-antique); cursor: pointer; margin-bottom: 1.2rem;" id="stars-row">
+          <span onclick="setStar(1)">★</span>
+          <span onclick="setStar(2)">★</span>
+          <span onclick="setStar(3)">★</span>
+          <span onclick="setStar(4)">★</span>
+          <span onclick="setStar(5)">★</span>
+        </div>
+
+        <div class="form-group" style="text-align: left;">
+          <label class="form-label">Your Review Feedback</label>
+          <textarea id="rate-feedback" class="form-textarea" rows="3" required placeholder="The Patola saree was immaculate and Radha ji provided matching latkans..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">
+          Submit Verified Rating
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/ui-effects.js"></script>
+  <script>
+    let selectedRating = 5;
+    let activeLenderId = 'radha';
+    let activeLenderEmail = '';
+    let isOwner = false;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentUser = PoshakhStore.getCurrentUser();
+
+      // If no lender specified, check if logged in as lender or default to radha
+      let lenderParam = urlParams.get('lender');
+      if (!lenderParam && currentUser && currentUser.role === 'lender') {
+        lenderParam = currentUser.lenderId || currentUser.email;
+      }
+      activeLenderId = lenderParam || 'radha';
+      
+      let lender = PoshakhStore.getLenderById(activeLenderId);
+      if (!lender) {
+        lender = PoshakhStore.getLenders().find(l => l.email && l.email.toLowerCase() === activeLenderId.toLowerCase());
+      }
+      if (!lender) {
+        lender = PoshakhStore.getLenders()[0];
+      }
+
+      activeLenderEmail = lender ? lender.email : '';
+
+      // Check if current logged-in user IS the owner of this boutique
+      isOwner = currentUser && lender && (
+        (currentUser.lenderId && currentUser.lenderId === lender.id) ||
+        (currentUser.email && lender.email && currentUser.email.toLowerCase() === lender.email.toLowerCase())
+      );
+
+      const allDresses = PoshakhStore.getDresses();
+      const dresses = allDresses.filter(d => 
+        (lender && d.lenderId === lender.id) || 
+        (lender && d.lenderEmail && d.lenderEmail.toLowerCase() === lender.email.toLowerCase())
+      );
+
+      // Populate header details
+      if (lender) {
+        document.getElementById('lender-name').textContent = lender.boutiqueName || lender.name;
+        document.getElementById('lender-handle').textContent = `${lender.handle || '@' + lender.name.toLowerCase()} • ${lender.location || 'Gujarat, India'}`;
+        document.getElementById('lender-bio').textContent = lender.bio || 'Curator of royal celebration wear and festive couture.';
+        if (lender.avatar) document.getElementById('lender-avatar').src = lender.avatar;
+        
+        // Dynamic stats (NOT hardcoded - newly created accounts start with 0!)
+        document.getElementById('stat-posts').textContent = dresses.length;
+        document.getElementById('stat-followers').textContent = (lender.followers !== undefined && lender.followers !== null) ? lender.followers : '0';
+        document.getElementById('stat-rating').textContent = `★ ${lender.rating || '5.0'}`;
+        document.getElementById('stat-reviews').textContent = `(${lender.reviewsCount || 0} Reviews)`;
+
+        document.getElementById('rate-modal-title').textContent = `Rate ${lender.boutiqueName || lender.name}`;
+        document.getElementById('lender-chat-link').href = `chat.html?lender=${lender.id || lender.email}`;
+      }
+
+      // Role check: Owner sees management controls; Visitors see Message / Follow / Rate
+      if (isOwner) {
+        document.getElementById('visitor-actions').style.display = 'none';
+        document.getElementById('owner-actions').style.display = 'flex';
+        document.getElementById('boutique-dp-badge').style.display = 'flex';
+      } else {
+        document.getElementById('visitor-actions').style.display = 'flex';
+        document.getElementById('owner-actions').style.display = 'none';
+        document.getElementById('boutique-dp-badge').style.display = 'none';
+      }
+
+      // Populate Instagram Grid
+      const grid = document.getElementById('lender-insta-grid');
+      if (grid) {
+        if (dresses.length === 0) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem; background: #fff; border-radius: var(--radius-md); border: 1px dashed var(--border-gold);">
+              <span style="font-size: 2.8rem;">👗</span>
+              <h3 style="font-size: 1.3rem; color: var(--wine-deep); margin-top: 0.8rem;">Catalog Coming Soon</h3>
+              <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.2rem;">
+                ${isOwner ? 'You have not uploaded any royal outfits yet. Add your wedding lehengas and sherwanis to start renting!' : 'This boutique is currently onboarding new festive ensembles.'}
+              </p>
+              ${isOwner ? `<a href="manage-dresses.html" class="btn btn-gold">+ Add Your First Outfit</a>` : ''}
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = dresses.map(d => `
+          <div class="insta-post-card card-tilt-3d" onclick="window.location.href='product.html?id=${d.id}'">
+            <img src="${d.images[0]}" alt="${d.name}" loading="lazy">
+            <div class="insta-overlay">
+              <span class="badge badge-gold" style="margin-bottom: 6px;">${d.category}</span>
+              <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 4px;">${d.name}</h3>
+              <div style="font-size: 1.25rem; font-weight: 700; color: var(--gold-light);">
+                ₹${d.rentPrice.toLocaleString()} <span style="font-size: 0.75rem; color: #eee; font-weight: 400;">/ day</span>
+              </div>
+              <span style="font-size: 0.75rem; color: #ddd; margin-top: 6px;">❤️ ${((d.reviewsCount || 4) * 4) + 12} Likes &bull; Rent Now &rarr;</span>
+            </div>
+          </div>
+        `).join('');
+
+        setTimeout(() => {
+          PoshakhEffects.init3DTilt();
+        }, 200);
+      }
+    });
+
+    // Handle Visitor Chat Click (requires login)
+    function handleVisitorChatClick(e) {
+      const currentUser = PoshakhStore.getCurrentUser();
+      if (!currentUser) {
+        e.preventDefault();
+        alert('Please sign in to message or negotiate with this boutique.');
+        window.location.href = `login.html?redirect=chat.html?lender=${activeLenderId}`;
+      }
+    }
+
+    // Owner DP Upload Handler
+    function handleBoutiqueDPUpload(input) {
+      if (!input.files || !input.files[0]) return;
+      const file = input.files[0];
+      if (!file.type.startsWith('image/')) {
+        alert('Please select an image file (JPG, PNG, WebP).');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        document.getElementById('lender-avatar').src = dataUrl;
+
+        // Persist in lenders list
+        let lenders = PoshakhStore.getLenders();
+        const lIdx = lenders.findIndex(l => 
+          l.id === activeLenderId || 
+          (activeLenderEmail && l.email && l.email.toLowerCase() === activeLenderEmail.toLowerCase())
+        );
+        if (lIdx >= 0) {
+          lenders[lIdx].avatar = dataUrl;
+          localStorage.setItem('poshakh_lenders', JSON.stringify(lenders));
+        }
+
+        // Sync with current user
+        const currentUser = PoshakhStore.getCurrentUser();
+        if (currentUser && isOwner) {
+          currentUser.avatar = dataUrl;
+          PoshakhStore.setCurrentUser(currentUser);
+          const navAvatar = document.querySelector('.user-avatar-sm');
+          if (navAvatar) navAvatar.src = dataUrl;
+        }
+
+        PoshakhUI.toast('Boutique profile picture updated successfully!', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Owner Edit Profile Modal
+    function openEditProfileModal() {
+      const lender = PoshakhStore.getLenderById(activeLenderId) || 
+                     PoshakhStore.getLenders().find(l => l.email && l.email.toLowerCase() === activeLenderEmail.toLowerCase());
+      if (lender) {
+        document.getElementById('edit-boutique-name').value = lender.boutiqueName || '';
+        document.getElementById('edit-boutique-handle').value = lender.handle || '';
+        document.getElementById('edit-boutique-location').value = lender.location || '';
+        document.getElementById('edit-boutique-bio').value = lender.bio || '';
+      }
+      document.getElementById('edit-profile-modal').classList.add('show');
+    }
+
+    function closeEditProfileModal() {
+      document.getElementById('edit-profile-modal').classList.remove('show');
+    }
+
+    function handleSaveBoutiqueProfile(e) {
+      e.preventDefault();
+      const bName = document.getElementById('edit-boutique-name').value.trim();
+      const bHandle = document.getElementById('edit-boutique-handle').value.trim();
+      const bLoc = document.getElementById('edit-boutique-location').value.trim();
+      const bBio = document.getElementById('edit-boutique-bio').value.trim();
+
+      let lenders = PoshakhStore.getLenders();
+      const lIdx = lenders.findIndex(l => 
+        l.id === activeLenderId || 
+        (activeLenderEmail && l.email && l.email.toLowerCase() === activeLenderEmail.toLowerCase())
+      );
+      if (lIdx >= 0) {
+        lenders[lIdx].boutiqueName = bName;
+        lenders[lIdx].handle = bHandle;
+        lenders[lIdx].location = bLoc;
+        lenders[lIdx].bio = bBio;
+        localStorage.setItem('poshakh_lenders', JSON.stringify(lenders));
+      }
+
+      const currentUser = PoshakhStore.getCurrentUser();
+      if (currentUser && isOwner) {
+        currentUser.boutiqueName = bName;
+        PoshakhStore.setCurrentUser(currentUser);
+      }
+
+      document.getElementById('lender-name').textContent = bName;
+      document.getElementById('lender-handle').textContent = `${bHandle} • ${bLoc}`;
+      document.getElementById('lender-bio').textContent = bBio;
+
+      closeEditProfileModal();
+      PoshakhUI.toast('Boutique profile details saved!', 'success');
+    }
+
+    function toggleFollow(btn) {
+      const followersEl = document.getElementById('stat-followers');
+      let currentFollowers = parseInt(followersEl.textContent.replace(/[^0-9]/g, '')) || 0;
+
+      if (btn.textContent.includes('Following')) {
+        btn.textContent = '+ Follow Boutique';
+        btn.classList.remove('btn-gold');
+        btn.classList.add('btn-outline');
+        followersEl.textContent = Math.max(0, currentFollowers - 1);
+        PoshakhUI.toast('Unfollowed boutique.', 'gold');
+      } else {
+        btn.textContent = '✓ Following';
+        btn.classList.remove('btn-outline');
+        btn.classList.add('btn-gold');
+        followersEl.textContent = currentFollowers + 1;
+        PoshakhUI.toast('Following boutique! You will receive drop updates.', 'success');
+      }
+    }
+
+    function openRateModal() {
+      document.getElementById('rate-modal').classList.add('show');
+    }
+
+    function closeRateModal() {
+      document.getElementById('rate-modal').classList.remove('show');
+    }
+
+    function setStar(n) {
+      selectedRating = n;
+      const stars = document.querySelectorAll('#stars-row span');
+      stars.forEach((s, idx) => {
+        s.style.color = idx < n ? 'var(--gold-antique)' : '#ccc';
+      });
+    }
+
+    function submitLenderRating(e) {
+      e.preventDefault();
+      closeRateModal();
+      PoshakhUI.toast('Thank you! Your verified rating has been submitted.', 'success');
+    }
+  </script>
+</body>
+</html>

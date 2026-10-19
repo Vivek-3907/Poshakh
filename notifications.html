@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Notifications | POSHAKH Royal Couture</title>
+  <meta name="description" content="Personalized private notifications for rental orders, return reminders, and boutique messages.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .notif-container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 7rem 1.5rem 5rem;
+    }
+
+    .notif-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 1.4rem 1.8rem;
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      transition: all 0.25s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .notif-card.unread {
+      border-left: 4px solid var(--gold-antique);
+      background: #FDFBF7;
+    }
+
+    .notif-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #FAF3E6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Navbar Placeholder -->
+  <div id="poshakh-nav-header"></div>
+
+  <div class="notif-container">
+    
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="eyebrow">PRIVATE ALERTS &amp; ACTIVITY</span>
+        <h1 style="font-size: 2.2rem; color: var(--wine-deep);">My Notifications</h1>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;" id="notif-user-sub">
+          Loading alerts for your account...
+        </p>
+      </div>
+
+      <div id="user-role-badge-box">
+        <!-- User Badge -->
+      </div>
+    </div>
+
+    <!-- Notification List -->
+    <div id="notifs-list">
+      <!-- Populated dynamically for the logged-in user -->
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. MUST BE LOGGED IN: Redirect to login.html if guest
+      const user = PoshakhStore.getCurrentUser();
+      if (!user) {
+        sessionStorage.setItem('poshakh_return_url', 'notifications.html');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // 2. Personalize Header for this specific user
+      const sub = document.getElementById('notif-user-sub');
+      const badgeBox = document.getElementById('user-role-badge-box');
+
+      if (user.role === 'lender') {
+        sub.textContent = `Boutique updates, bookings, and messages for ${user.boutiqueName || user.name}`;
+        badgeBox.innerHTML = `<span class="badge badge-gold">👑 Boutique Lender: ${user.name}</span>`;
+      } else if (user.role === 'admin') {
+        sub.textContent = `Platform governance and system alerts for ${user.name}`;
+        badgeBox.innerHTML = `<span class="badge badge-crimson">🛡️ Super Admin</span>`;
+      } else {
+        sub.textContent = `Rental milestones, return timers, and order notices for ${user.name}`;
+        badgeBox.innerHTML = `<span class="badge badge-gold">🛍️ Renter: ${user.name}</span>`;
+      }
+
+      renderUserNotifications(user);
+    });
+
+    function renderUserNotifications(user) {
+      // Fetch ONLY notifications targeted to this specific user's email or role
+      const userNotifs = PoshakhStore.getNotifications(user.email, user.role);
+      const container = document.getElementById('notifs-list');
+      if (!container) return;
+
+      if (userNotifs.length === 0) {
+        container.innerHTML = `
+          <div style="background: #fff; padding: 3.5rem 2rem; text-align: center; border-radius: var(--radius-md); border: 1px dashed var(--border-gold);">
+            <span style="font-size: 2.8rem;">🔔</span>
+            <h3 style="font-size: 1.3rem; color: var(--wine-deep); margin: 0.8rem 0 0.4rem;">No New Notifications</h3>
+            <p style="color: var(--text-muted); font-size: 0.88rem;">You are all caught up! When you rent an outfit or receive a booking, updates will appear here.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = userNotifs.map(n => {
+        let icon = '🔔';
+        if (n.type === 'order' || n.type === 'order_status') icon = '📦';
+        if (n.type === 'timer') icon = '⏳';
+        if (n.type === 'message') icon = '💬';
+        if (n.type === 'admin') icon = '🛡️';
+        if (n.type === 'negotiation') icon = '🤝';
+
+        return `
+          <div class="notif-card ${!n.read ? 'unread' : ''}">
+            <div class="notif-icon-circle">${icon}</div>
+            <div style="flex-grow: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <h4 style="font-size: 1.05rem; color: var(--wine-deep);">${n.title}</h4>
+                <span style="font-size: 0.72rem; color: var(--text-muted);">${n.timestamp}</span>
+              </div>
+              <p style="font-size: 0.9rem; color: #444; line-height: 1.5;">${n.message}</p>
+              
+              <div style="margin-top: 0.8rem; display: flex; gap: 0.8rem; align-items: center;">
+                <span class="badge badge-gold" style="font-size: 0.65rem;">Private Notification</span>
+                ${n.type === 'message' || n.type === 'negotiation' ? `
+                  <a href="chat.html" style="font-size: 0.78rem; color: var(--crimson-cta); font-weight: 600;">Open Conversation &rarr;</a>
+                ` : ''}
+                ${n.type === 'order' || n.type === 'timer' ? `
+                  <a href="rentals.html" style="font-size: 0.78rem; color: var(--wine-deep); font-weight: 600;">View Rental Status &rarr;</a>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+  </script>
+</body>
+</html>

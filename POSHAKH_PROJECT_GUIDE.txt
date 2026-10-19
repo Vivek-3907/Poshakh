@@ -1,0 +1,249 @@
+================================================================================
+POSHAKH (પોશાક / पोशाक) - LUXURY ETHNIC WEAR RENTAL PLATFORM
+COMPREHENSIVE PROJECT DOCUMENTATION & TECHNICAL REPORT
+COLLEGE: L.J. INSTITUTE OF COMPUTER APPLICATIONS (LJCCA)
+================================================================================
+
+1. PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+Project Name      : POSHAKH
+Tagline           : Wear The Celebration, Return The Rest.
+Project Type      : Peer-to-Peer Luxury Ethnic Wear Rental & Couture Marketplace
+Domain            : E-Commerce / Fashion-Tech / Circular Sharing Economy
+Target Users      : Customer Renters, Boutique Lenders, Super Administrator
+Institution       : L.J. Institute of Computer Applications (LJCCA)
+Architecture      : Clean Web Architecture (HTML5, Custom CSS3 Luxury System, 
+                    Modular ES6+ JavaScript, Native Node.js Server)
+
+
+2. PROBLEM STATEMENT & THE POSHAKH SOLUTION
+--------------------------------------------------------------------------------
+PROBLEM (Traditional Offline System):
+- High Retail Cost: Families spend Rs. 40,000 to Rs. 1,50,000 on bridal lehengas 
+  or groom sherwanis that are worn only once for a single evening.
+- Dead Wardrobe Capital: Millions worth of designer apparel sits idle in cupboards.
+- Insecure Deposits: Local offline rental shops take cash deposits with no written 
+  contracts or dispute protection.
+- Sizing Ambiguity: Renters travel to physical shops with zero catalog visibility.
+
+SOLUTION (The Poshakh Circular Ecosystem):
+- 85%+ Cost Savings: Rent an authentic Rs. 65,000 royal lehenga for just Rs. 3,800.
+- 100% Security Escrow: Transparent security deposits held safely until return 
+  inspection passes.
+- Direct Boutique Chat: Renters chat directly with boutique curators for blouse 
+  fittings, custom measurements, and delivery updates.
+- Lender Monetization: Ethnic boutiques & wardrobe owners earn recurring revenue 
+  from idle couture garments.
+- Impartial Admin Governance: Super Admin arbitrates damage claims with photo proof.
+
+
+3. USER ROLES & ACCESS CONTROL (RBAC)
+--------------------------------------------------------------------------------
+A) CUSTOMER / RENTER:
+   - Can browse catalog and filter by Category, Occasion, Price, and Boutique.
+   - Can select rental duration (3, 5, or 7 days) with dynamic price calculation.
+   - Can pay Rental Fee + Refundable Security Deposit via simulated escrow.
+   - Can chat in real-time with boutique lenders before and after booking.
+   - Can track active rentals, view tracking IDs, and submit return requests.
+   - Restriction: Cannot edit boutique inventory or access admin portals.
+
+B) BOUTIQUE LENDER:
+   - Has a dedicated Boutique Storefront with bio, city, rating, and avatar.
+   - Can list new garments with titles, categories, rental prices, and deposit sums.
+   - Can toggle garment availability (Available vs Rented) and manage stock.
+   - Can track incoming rental orders and mark garments as Dispatched with tracking.
+   - Can inspect returned outfits and confirm condition to release deposit.
+   - Restriction: Cannot unilaterally withhold deposits or change platform fees.
+
+C) SUPER ADMINISTRATOR:
+   - Super Admin credentials: admin202@admin.com / Admin@202
+   - Full access to Admin Portal (admin.html).
+   - Monitors global platform KPIs: Total Revenue, Active Bookings, Total Users.
+   - Oversees the Dispute Arbitration Desk to mediate damage complaints.
+   - Has authority to execute deposit refunds or authorize damage deductions.
+
+
+4. TECHNOLOGY STACK USED
+--------------------------------------------------------------------------------
+1. Frontend Structure    : Semantic HTML5 (Clean, accessible, SEO-ready)
+2. Styling & Aesthetics   : Custom CSS3 Luxury Design System
+                           - CSS Variables (--gold-primary, --maroon-royal)
+                           - Glassmorphism & backdrop filters
+                           - Responsive CSS Grid and Flexbox layouts
+                           - Smooth micro-interactions and transitions
+3. Client-Side Scripting : Modular Vanilla ES6+ JavaScript
+                           - store.js: Central data store and CRUD methods
+                           - auth.js: Role authentication and route protection
+                           - main.js: Universal navigation & user state sync
+                           - ui-effects.js: Hero parallax and card animations
+4. Persistence Layer     : Browser LocalStorage & SessionStorage API
+                           - Structured relational tables (Users, Dresses, Orders)
+                           - Instant zero-latency read/write operations
+5. Backend Web Server    : Native Node.js HTTP Daemon (server.js)
+                           - Zero external npm runtime dependencies
+                           - Automatic MIME-type handling & clean URL routing
+
+
+5. COMPLETE FILE DIRECTORY & WHAT EACH FILE DOES
+--------------------------------------------------------------------------------
+1.  index.html            : Landing page with luxury hero parallax, carousels, 
+                            curated boutique highlights, and testimonials.
+2.  shop.html             : Main shopping catalog with real-time multi-filter 
+                            engine (Category, Occasion, Price range, Search).
+3.  product.html          : Outfit detail view with high-res gallery, fabric specs, 
+                            and 3/5/7-day dynamic rental price & deposit calculator.
+4.  checkout.html         : Escrow checkout screen calculating Rent + Deposit + 
+                            Delivery fees and generating confirmed order IDs.
+5.  rentals.html          : Renter's personal dashboard displaying active rentals, 
+                            order status pills, courier tracking, and return actions.
+6.  chat.html             : In-app direct messaging portal between renters and 
+                            boutique owners for sizing and logistics.
+7.  account.html          : User profile manager for editing personal info, phone, 
+                            address, and viewing saved wishlist items.
+8.  lender-dashboard.html : Operational command center for boutiques showing revenue 
+                            earned, active rentals, and dispatch management.
+9.  manage-dresses.html   : Boutique inventory manager for listing new outfits, 
+                            setting prices/deposits, and toggling availability.
+10. lender-profile.html   : Public boutique storefront displaying verified badge, 
+                            city location, rating score, reviews, and outfits.
+11. admin.html            : Super Admin console for viewing global platform GMV, 
+                            auditing users, and resolving damage disputes.
+12. notifications.html    : Activity stream alerting users to booking status 
+                            changes, dispatch tracking, and deposit refunds.
+13. login.html            : Role-aware authentication supporting Renter login, 
+                            Boutique registration, and Super Admin shortcuts.
+14. js/store.js           : Master LocalStorage database with default seed data 
+                            for diverse heritage boutiques and royal garments.
+15. js/auth.js            : Security controller managing user sessions, login/signup 
+                            validation, and role-based page protection.
+16. js/main.js            : Dynamic luxury navbar renderer, user profile avatar pill, 
+                            and dropdown menu management.
+17. js/ui-effects.js      : Parallax scrolling and luxury card tilt micro-effects.
+18. css/style.css         : Core typography, color system, and layout grid classes.
+19. css/components.css    : Reusable UI cards, buttons, badges, tables, and modals.
+20. server.js             : Lightweight Node.js HTTP server listening on port 3000.
+21. package.json          : Project manifest with standard 'npm start' command.
+22. generate_deck.js      : Node script that created the 26-slide PowerPoint deck.
+
+
+6. DATABASE TABLES & DATA SCHEMAS
+--------------------------------------------------------------------------------
+Table 1: USERS
+- id (PK)                 : VARCHAR - Unique user identifier
+- name                    : VARCHAR - User full name
+- email (UK)              : VARCHAR - Login email address
+- password                : VARCHAR - Encrypted password
+- role                    : ENUM    - 'renter' | 'lender' | 'admin'
+- phone                   : VARCHAR - Contact number
+- avatar                  : VARCHAR - Profile picture image URL
+
+Table 2: LENDERS (Boutiques)
+- id (PK, FK -> USERS)    : VARCHAR - Boutique unique handle (e.g. 'radha')
+- boutiqueName            : VARCHAR - Business name (e.g. 'Radha Ethnic House')
+- handle                  : VARCHAR - Unique username (e.g. '@radha_poshakh')
+- bio                     : TEXT    - Boutique heritage description
+- rating                  : FLOAT   - Average satisfaction score (e.g. 4.9)
+- location                : VARCHAR - Geographic city (e.g. 'Ahmedabad, Gujarat')
+- totalRentals            : INT     - Lifetime completed rentals count
+- status                  : VARCHAR - 'Verified Boutique' badge
+
+Table 3: DRESSES
+- id (PK)                 : VARCHAR - Garment code (e.g. 'd1')
+- name                    : VARCHAR - Outfit title (e.g. 'Crimson Bridal Lehenga')
+- category                : VARCHAR - 'Lehenga', 'Saree', 'Sherwani', 'Chaniya Choli'
+- occasion                : VARCHAR - 'Wedding', 'Sangeet', 'Navratri', 'Reception'
+- rentPrice               : INT     - 3-day rental fee in INR (e.g. 3800)
+- deposit                 : INT     - Refundable security escrow sum (e.g. 6000)
+- retailValue             : INT     - Original retail purchase price (e.g. 65000)
+- lenderId (FK -> LENDERS): VARCHAR - Owner boutique identifier
+- fabric                  : VARCHAR - Textile material and embroidery details
+- images                  : ARRAY   - High-resolution photographic URLs
+- availability            : BOOLEAN - In-stock toggle for rental
+
+Table 4: ORDERS
+- orderId (PK)            : VARCHAR - Transaction ID (e.g. 'ORD-2026-9812')
+- dressId (FK -> DRESSES) : VARCHAR - Reference to rented garment
+- renterId (FK -> USERS)  : VARCHAR - Customer user reference
+- lenderId (FK -> LENDERS): VARCHAR - Fulfilling boutique reference
+- rentalDays              : INT     - 3, 5, or 7 days duration
+- totalAmount             : INT     - Rent Fee + Security Deposit + Delivery
+- status                  : ENUM    - 'Booked', 'Dispatched', 'Active', 'Returned'
+- escrowStatus            : ENUM    - 'HELD', 'REFUNDED', 'DISPUTED'
+
+Table 5: CHATS
+- id (PK)                 : VARCHAR - Unique chat message ID
+- senderId (FK -> USERS)  : VARCHAR - Author user ID
+- receiverId (FK -> USERS): VARCHAR - Recipient user ID
+- text                    : TEXT    - Message content
+- timestamp               : DATETIME- Dispatch time
+
+Table 6: COMPLAINTS
+- complaintId (PK)        : VARCHAR - Dispute case number
+- orderId (FK -> ORDERS)  : VARCHAR - Related rental order
+- filedBy (FK -> USERS)   : VARCHAR - Reporting user ID
+- reason                  : VARCHAR - Description of damage or sizing issue
+- claimAmount             : INT     - Claimed compensation deduction
+- status                  : ENUM    - 'Pending', 'Investigating', 'Resolved'
+
+
+7. STEP-BY-STEP WORKFLOW: HOW IT WORKS
+--------------------------------------------------------------------------------
+STEP 1: LOGIN & ROLE ROUTING
+- User visits login.html.
+- Renter logs in -> redirected to shop.html.
+- Boutique Lender logs in -> redirected to lender-dashboard.html.
+- Admin logs in (admin202@admin.com / Admin@202) -> redirected to admin.html.
+
+STEP 2: OUTFIT SELECTION & PRICING
+- Customer selects an outfit on shop.html and opens product.html.
+- Customer toggles rental duration (3 Days = 1x rent, 5 Days = 1.5x, 7 Days = 2x).
+- System displays: Net Rent + Refundable Security Deposit = Total Due.
+- Customer can click "Chat with Boutique" to confirm sizing before booking.
+
+STEP 3: ESCROW PAYMENT & DISPATCH
+- Customer confirms booking on checkout.html.
+- Total amount is charged; Security Deposit is locked into 'HELD' escrow status.
+- Boutique Lender sees order on lender-dashboard.html, packs outfit, and clicks 
+  "Mark Dispatched", adding a courier tracking code.
+
+STEP 4: RETURN & AUTO-REFUND
+- Customer wears outfit for the event and returns it via courier.
+- Boutique receives outfit and inspects condition.
+- If condition is satisfactory, Boutique clicks "Confirm Return Received".
+- Order completes, escrow status switches to 'REFUNDED', and deposit is returned.
+- If damage is found, a claim is submitted and Super Admin resolves the dispute.
+
+
+8. HOW TO RUN THE PROJECT
+--------------------------------------------------------------------------------
+Step 1: Open PowerShell or Terminal in the project directory:
+        cd d:\poshakh
+
+Step 2: Start the Node.js server:
+        npm start
+        (or: node server.js)
+
+Step 3: Open your web browser and navigate to:
+        http://localhost:3000
+
+Step 4: Stop the server anytime by pressing Ctrl + C in the terminal.
+
+
+9. TOP VIVA DEFENSE QUESTIONS & ANSWERS (LJCCA)
+--------------------------------------------------------------------------------
+Q1: What is the core business and technical innovation in Poshakh?
+A:  Poshakh converts single-use high-expense bridal couture into a circular 
+    sharing economy. Technically, it implements dynamic date-based rental 
+    calculation, real-time pre-booking chat, and a deterministic security deposit 
+    escrow system that protects both renters and boutique lenders.
+
+Q2: Why use a custom Node.js server instead of standard Apache or XAMPP?
+A:  Our native Node.js HTTP server (server.js) is self-contained and zero-dependency. 
+    It eliminates heavy server installations, provides precise MIME-type mapping 
+    for modern web formats, and ensures cross-platform portability.
+
+Q3: How are security deposits protected from fraud?
+A:  Neither the renter nor the lender can unilaterally take funds. Security deposits 
+    remain in escrow until both return delivery and physical inspection are certified. 
+    In case of disagreement, disputes are arbitrated exclusively by the Super Admin.
+================================================================================

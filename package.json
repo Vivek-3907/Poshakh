@@ -1,0 +1,21 @@
+{
+  "name": "poshakh",
+  "version": "1.0.0",
+  "description": "POSHAKH - Luxury Ethnic Wear Rental & Royal Couture",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "ethnic-wear",
+    "rental",
+    "couture",
+    "poshakh"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

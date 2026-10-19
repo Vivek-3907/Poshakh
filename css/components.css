@@ -1,0 +1,884 @@
+/* ==========================================================================
+   POSHAKH - Component Styles
+   Navbar, Cards, Modals, Forms, Dashboards, Chat, and Instagram Grid
+   ========================================================================== */
+
+/* 1. LUXURY NAVBAR */
+.poshakh-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1.2rem 0;
+  transition: all 0.4s ease;
+  background: transparent;
+}
+
+.poshakh-nav.scrolled {
+  background: rgba(251, 247, 240, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 0.85rem 0;
+  box-shadow: 0 4px 20px rgba(18, 10, 12, 0.08);
+  border-bottom: 1px solid rgba(201, 154, 46, 0.2);
+}
+
+.poshakh-nav.nav-dark {
+  background: rgba(18, 10, 12, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(201, 154, 46, 0.2);
+}
+
+.poshakh-nav.nav-dark .nav-brand,
+.poshakh-nav.nav-dark .nav-link,
+.poshakh-nav.nav-dark .nav-action-btn {
+  color: #FBF7F0;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.nav-brand {
+  font-family: var(--font-serif);
+  font-size: 1.95rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--wine-deep);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.nav-brand span.brand-accent {
+  font-family: var(--font-script);
+  font-size: 1.5rem;
+  color: var(--gold-antique);
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+  list-style: none;
+}
+
+.nav-link {
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-charcoal);
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold-antique);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.nav-action-btn {
+  font-size: 0.85rem;
+  color: var(--text-charcoal);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+}
+
+.nav-badge-pill {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: var(--crimson-cta);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 99px;
+}
+
+/* User Profile Dropdown Pill */
+.user-profile-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(201, 154, 46, 0.12);
+  border: 1px solid var(--border-subtle);
+  padding: 0.35rem 0.9rem 0.35rem 0.45rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.user-profile-pill:hover {
+  background: rgba(201, 154, 46, 0.22);
+  border-color: var(--gold-antique);
+}
+
+.user-avatar-sm {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid var(--gold-antique);
+}
+
+.user-role-tag {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gold-antique);
+  font-weight: 700;
+}
+
+/* Mobile Hamburger */
+.mobile-nav-toggle {
+  display: none;
+  font-size: 1.5rem;
+  color: var(--text-charcoal);
+  cursor: pointer;
+}
+
+/* Mobile Drawer */
+.mobile-nav-drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 300px;
+  height: 100vh;
+  background: var(--bg-ivory);
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
+  z-index: 10000;
+  padding: 2rem;
+  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobile-nav-drawer.open {
+  right: 0;
+  display: flex;
+}
+
+/* 2. PRODUCT CARDS & 3D GALLERY */
+.product-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(201, 154, 46, 0.18);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s var(--ease-luxury);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--gold-antique);
+}
+
+.product-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 135%; /* Tall portrait luxury editorial ratio */
+  overflow: hidden;
+  background: #f0e9dc;
+}
+
+.product-image-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-luxury);
+}
+
+.product-card:hover .product-image-wrapper img {
+  transform: scale(1.06);
+}
+
+.product-badge-overlay {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+}
+
+.product-favorite-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--crimson-cta);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+.product-favorite-btn:hover {
+  transform: scale(1.15);
+}
+
+.product-info {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-category-tag {
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-antique);
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.product-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-charcoal);
+  margin-bottom: 0.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-lender-line {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.product-lender-line a {
+  color: var(--wine-deep);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.product-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.8rem;
+  border-top: 1px dashed rgba(201, 154, 46, 0.25);
+}
+
+.product-rent-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--wine-deep);
+}
+
+.product-rent-price span {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.product-deposit-tag {
+  font-size: 0.72rem;
+  color: #555;
+  background: #f7f1e6;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* 3. HERO & 3D CYLINDRICAL PRESENTATION */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  color: #fff;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle, rgba(18, 10, 12, 0.45) 0%, rgba(18, 10, 12, 0.85) 100%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  padding: 0 1.5rem;
+  margin-top: 3rem;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4.8rem);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.1;
+  color: #FBF7F0;
+  margin-bottom: 1.4rem;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: #E5BE65;
+  font-weight: 300;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 2.2rem;
+}
+
+/* 4. BLACK & WHITE TO COLOR STRIP */
+.photo-strip-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+}
+
+.strip-item {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 380px;
+  cursor: pointer;
+  transition: all 0.6s var(--ease-luxury);
+  filter: grayscale(100%) contrast(1.1);
+}
+
+.strip-item:hover {
+  filter: grayscale(0%) contrast(1);
+  transform: scale(1.05) translateY(-5px);
+  z-index: 5;
+  box-shadow: 0 20px 40px rgba(18, 10, 12, 0.4);
+}
+
+.strip-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.strip-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(to top, rgba(18, 10, 12, 0.85), transparent);
+  color: #fff;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+.strip-item:hover .strip-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 5. AMAZON-STYLE FORMS & CHECKOUT */
+.form-luxury-card {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-group {
+  margin-bottom: 1.4rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-charcoal);
+  margin-bottom: 0.5rem;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid #D6CEBE;
+  background-color: #FBF7F0;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-charcoal);
+  transition: all 0.3s ease;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--gold-antique);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(201, 154, 46, 0.18);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+}
+
+/* Checkout Step Indicator */
+.checkout-steps {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.checkout-steps::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: #E0D6C3;
+  z-index: 0;
+}
+
+.step-node {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #E0D6C3;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin: 0 auto 0.5rem auto;
+  transition: all 0.3s ease;
+}
+
+.step-node.active .step-circle {
+  background: var(--wine-deep);
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(90, 15, 31, 0.2);
+}
+
+.step-node.completed .step-circle {
+  background: var(--gold-antique);
+  color: #120A0C;
+}
+
+.step-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+}
+
+.step-node.active .step-label {
+  color: var(--wine-deep);
+}
+
+/* 6. INSTAGRAM-STYLE BOUTIQUE GRID */
+.instagram-profile-header {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.insta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.insta-post-card {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.insta-post-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.insta-post-card:hover img {
+  transform: scale(1.08);
+}
+
+.insta-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(18, 10, 12, 0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #fff;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.insta-post-card:hover .insta-overlay {
+  opacity: 1;
+}
+
+/* 7. LIVE NEGOTIATION & BARGAIN CHAT */
+.chat-window {
+  background: #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+}
+
+.chat-header {
+  padding: 1.2rem 1.8rem;
+  border-bottom: 1px solid #ECE3D4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FBF7F0;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  padding: 1.8rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.chat-bubble {
+  max-width: 70%;
+  padding: 0.9rem 1.3rem;
+  border-radius: 18px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  position: relative;
+}
+
+.chat-bubble.renter {
+  align-self: flex-end;
+  background: var(--wine-deep);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-bubble.lender {
+  align-self: flex-start;
+  background: #F4EEDF;
+  color: var(--text-charcoal);
+  border-bottom-left-radius: 4px;
+  border: 1px solid rgba(201, 154, 46, 0.3);
+}
+
+.chat-bubble.admin {
+  align-self: center;
+  background: #120A0C;
+  color: var(--gold-antique);
+  border: 1px solid var(--gold-antique);
+  font-size: 0.85rem;
+}
+
+.chat-time {
+  font-size: 0.68rem;
+  opacity: 0.7;
+  margin-top: 4px;
+  text-align: right;
+}
+
+.chat-input-bar {
+  padding: 1rem 1.8rem;
+  border-top: 1px solid #ECE3D4;
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  background: #fff;
+}
+
+.bargain-box {
+  background: #FFF9EE;
+  border: 1px dashed var(--gold-antique);
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* 8. DASHBOARD METRIC TILES */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.metric-tile {
+  background: #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  padding: 1.8rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.metric-value {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--wine-deep);
+}
+
+.metric-change {
+  font-size: 0.76rem;
+  font-weight: 500;
+  margin-top: 0.4rem;
+  color: #1e7e34;
+}
+
+/* Table luxury style */
+.table-luxury {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.table-luxury th {
+  background: #FAF3E6;
+  color: var(--text-charcoal);
+  font-size: 0.76rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 1rem 1.4rem;
+  text-align: left;
+  border-bottom: 1px solid #E6D9C0;
+}
+
+.table-luxury td {
+  padding: 1.1rem 1.4rem;
+  border-bottom: 1px solid #F0E8D8;
+  font-size: 0.9rem;
+  color: var(--text-charcoal);
+}
+
+.table-luxury tr:last-child td {
+  border-bottom: none;
+}
+
+.table-luxury tr:hover td {
+  background: #FDFBF7;
+}
+
+/* Modal Luxury */
+.poshakh-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(18, 10, 12, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.poshakh-modal-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.poshakh-modal-dialog {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  max-width: 650px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--gold-antique);
+  box-shadow: var(--shadow-lg);
+  padding: 2.2rem;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.poshakh-modal-backdrop.show .poshakh-modal-dialog {
+  transform: translateY(0);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  font-size: 1.4rem;
+  color: #777;
+  cursor: pointer;
+}
+
+@media (max-width: 992px) {
+  .nav-menu {
+    display: none;
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .hero-title {
+    font-size: 2.5rem;
+  }
+}
+
+/* 9. FLOATING MESSAGE & BARGAIN ACTION BUTTON */
+.floating-chat-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  background: var(--wine-deep);
+  color: #fff;
+  border: 1.5px solid var(--gold-antique);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 10px 25px rgba(90, 15, 31, 0.45), 0 0 15px rgba(201, 154, 46, 0.3);
+  text-decoration: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.chat-fab-inner {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0.95rem;
+  transition: all 0.35s ease;
+}
+
+.floating-chat-btn svg {
+  color: var(--gold-light);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.chat-fab-label {
+  max-width: 0;
+  opacity: 0;
+  white-space: nowrap;
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #FAF5EB;
+  transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, margin-left 0.3s ease;
+  overflow: hidden;
+  margin-left: 0;
+}
+
+.floating-chat-btn:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 14px 32px rgba(90, 15, 31, 0.6), 0 0 20px rgba(201, 154, 46, 0.5);
+  background: #4A0B19;
+}
+
+.floating-chat-btn:hover .chat-fab-inner {
+  padding: 0.95rem 1.4rem;
+}
+
+.floating-chat-btn:hover .chat-fab-label {
+  max-width: 180px;
+  opacity: 1;
+  margin-left: 0.6rem;
+}
+
+.floating-chat-btn:hover svg {
+  transform: rotate(-10deg) scale(1.1);
+}

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Account | POSHAKH Royal Couture</title>
+  <meta name="description" content="Manage your Poshakh profile, security preferences, change password, and saved addresses.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .account-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+      padding: 7rem 0 5rem;
+    }
+
+    .account-sidebar-nav {
+      background: #fff;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      height: fit-content;
+    }
+
+    .account-tab-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-charcoal);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .account-tab-btn:hover, .account-tab-btn.active {
+      background: #FAF3E6;
+      color: var(--wine-deep);
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .account-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Navbar Placeholder -->
+  <div id="poshakh-nav-header"></div>
+
+  <div class="container">
+    <div class="account-layout">
+      
+      <!-- Left Sidebar Tabs -->
+      <aside class="account-sidebar-nav">
+        <!-- User Avatar & Quick Info -->
+        <div style="text-align: center; padding-bottom: 1.5rem; margin-bottom: 1.2rem; border-bottom: 1px solid #f0e8d8;">
+          <div style="position: relative; display: inline-block; margin-bottom: 0.6rem;">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80" alt="Avatar" id="acc-avatar" style="width: 85px; height: 85px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--gold-antique); display: block;">
+            <label for="acc-avatar-upload" style="position: absolute; bottom: 0; right: -4px; background: var(--wine-deep); color: #fff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.25); font-size: 13px;" title="Upload Your Photo">
+              📷
+            </label>
+            <input type="file" id="acc-avatar-upload" accept="image/*" style="display: none;" onchange="handleUserAvatarUpload(this)">
+          </div>
+          <button type="button" onclick="document.getElementById('acc-avatar-upload').click()" style="display: block; margin: 0 auto 0.4rem; font-size: 0.78rem; color: var(--gold-antique); font-weight: 600; text-decoration: underline; background: none; border: none; cursor: pointer;">
+            Change Photo
+          </button>
+          <h3 id="acc-name" style="font-size: 1.1rem; color: var(--wine-deep);">Manoj Patel</h3>
+          <span class="badge badge-gold" id="acc-role" style="font-size: 0.7rem;">Verified Renter</span>
+        </div>
+
+        <button class="account-tab-btn active" onclick="switchAccountTab('profile', this)">
+          👤 Personal Profile
+        </button>
+        <button class="account-tab-btn" onclick="switchAccountTab('security', this)">
+          🔒 Security & Password
+        </button>
+        <button class="account-tab-btn" onclick="switchAccountTab('address', this)">
+          📍 Saved Addresses
+        </button>
+        <a href="rentals.html" class="account-tab-btn" id="acc-rentals-link">
+          📦 My Order History &rarr;
+        </a>
+        <div id="acc-lender-extra-links" style="display: none;">
+          <a href="manage-dresses.html" class="account-tab-btn" style="color: var(--wine-deep);">
+            👗 Manage Boutique Outfits &rarr;
+          </a>
+          <a href="lender-profile.html" id="acc-boutique-page-link" class="account-tab-btn" style="color: var(--wine-deep);">
+            📸 View My Boutique &rarr;
+          </a>
+        </div>
+        <button onclick="PoshakhStore.logout()" class="account-tab-btn" style="color: var(--crimson-cta); margin-top: 1.5rem; border-top: 1px solid #eee; padding-top: 1rem;">
+          🚪 Sign Out
+        </button>
+      </aside>
+
+      <!-- Right Tab Contents -->
+      <main>
+        
+        <!-- TAB 1: PROFILE DETAILS -->
+        <div id="tab-profile" class="form-luxury-card">
+          <h2 style="font-size: 1.5rem; color: var(--wine-deep); margin-bottom: 0.4rem;">Personal Information</h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.8rem;">Update your details, custom avatar, and contact info for doorstep delivery.</p>
+
+          <!-- Custom Photo Upload Section -->
+          <div style="display: flex; align-items: center; gap: 1.5rem; background: #FAF5EB; padding: 1.2rem; border-radius: var(--radius-sm); border: 1px dashed var(--gold-antique); margin-bottom: 1.8rem;">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80" id="prof-avatar-preview" style="width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-antique);">
+            <div style="flex-grow: 1;">
+              <strong style="color: var(--wine-deep); font-size: 0.95rem; display: block; margin-bottom: 4px;">Profile Photo / Avatar</strong>
+              <p style="font-size: 0.78rem; color: #666; margin-bottom: 8px;">Upload your own picture from your computer/phone or enter an image web link.</p>
+              <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center;">
+                <button type="button" class="btn btn-outline" style="padding: 0.45rem 1rem; font-size: 0.76rem;" onclick="document.getElementById('acc-avatar-upload').click()">
+                  📁 Upload Photo File
+                </button>
+                <input type="url" id="prof-avatar-url" placeholder="Or paste image URL here..." class="form-input" style="padding: 0.45rem 0.8rem; font-size: 0.8rem; width: 240px;" onchange="handleAvatarUrlChange(this.value)">
+              </div>
+            </div>
+          </div>
+
+          <form onsubmit="handleProfileUpdate(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" id="prof-name" class="form-input" value="Manoj Patel" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" id="prof-email" class="form-input" value="Manoj34@gmail.com" readonly style="background: #eee; cursor: not-allowed;">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Primary Mobile</label>
+                <input type="tel" id="prof-phone" class="form-input" value="+91 98791 22334" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">City & State</label>
+                <input type="text" id="prof-city" class="form-input" value="Ahmedabad, Gujarat" required>
+              </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
+              <button type="submit" class="btn btn-gold">Save Profile Updates</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- TAB 2: CHANGE PASSWORD -->
+        <div id="tab-security" class="form-luxury-card" style="display: none;">
+          <h2 style="font-size: 1.5rem; color: var(--wine-deep); margin-bottom: 0.4rem;">Security & Password</h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2rem;">Ensure your account uses a secure password with letters and special symbols.</p>
+
+          <form onsubmit="handlePasswordChange(event)">
+            <div class="form-group">
+              <label class="form-label">Current Password</label>
+              <input type="password" id="pass-current" class="form-input" required placeholder="••••••••">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">New Password</label>
+                <input type="password" id="pass-new" class="form-input" required placeholder="At least 6 characters">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirm New Password</label>
+                <input type="password" id="pass-confirm" class="form-input" required placeholder="Re-enter new password">
+              </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
+              <button type="submit" class="btn btn-crimson">Update Password</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- TAB 3: SAVED ADDRESSES -->
+        <div id="tab-address" class="form-luxury-card" style="display: none;">
+          <h2 style="font-size: 1.5rem; color: var(--wine-deep); margin-bottom: 0.4rem;">Saved Delivery Addresses</h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2rem;">Default locations for doorstep rental trial and return pickups.</p>
+
+          <div style="background: #FAF5EB; border: 1px solid var(--border-gold); border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+              <span class="badge badge-gold">Default Address (Home)</span>
+              <button onclick="PoshakhUI.toast('Address ready for checkout!', 'success')" style="font-size: 0.78rem; color: var(--wine-deep); font-weight: 700;">Edit</button>
+            </div>
+            <strong style="display: block; font-size: 1rem; color: var(--text-charcoal); margin-bottom: 4px;">Manoj Patel &bull; +91 98791 22334</strong>
+            <p style="font-size: 0.88rem; color: #555; line-height: 1.5;">
+              402, Shivalik High Street, Near SG Highway, Opposite Iscon Mall, Bodakdev, Ahmedabad, Gujarat &ndash; 380054
+            </p>
+          </div>
+
+          <button onclick="PoshakhUI.toast('Add New Address modal ready!', 'gold')" class="btn btn-outline">+ Add Another Address</button>
+        </div>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    let activeAvatarData = '';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = PoshakhStore.getCurrentUser();
+      if (!user) {
+        window.location.href = 'login.html?redirect=account.html';
+        return;
+      }
+
+      // Populate user info
+      document.getElementById('acc-name').textContent = user.name;
+      document.getElementById('prof-name').value = user.name || '';
+      document.getElementById('prof-email').value = user.email || '';
+      if (user.phone) document.getElementById('prof-phone').value = user.phone;
+      if (user.city) document.getElementById('prof-city').value = user.city;
+
+      const avatarSrc = user.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80';
+      document.getElementById('acc-avatar').src = avatarSrc;
+      document.getElementById('prof-avatar-preview').src = avatarSrc;
+      activeAvatarData = avatarSrc;
+
+      // Handle Role specifics (Admin does NOT have personal rental history!)
+      if (user.role === 'admin') {
+        document.getElementById('acc-role').textContent = 'SUPER ADMIN';
+        document.getElementById('acc-role').className = 'badge badge-wine';
+        const rentLink = document.getElementById('acc-rentals-link');
+        if (rentLink) {
+          rentLink.href = 'admin.html';
+          rentLink.innerHTML = '🛡️ Admin Control Portal &rarr;';
+        }
+      } else if (user.role === 'lender') {
+        document.getElementById('acc-role').textContent = 'VERIFIED BOUTIQUE LENDER';
+        document.getElementById('acc-role').className = 'badge badge-gold';
+        const lenderLinks = document.getElementById('acc-lender-extra-links');
+        if (lenderLinks) lenderLinks.style.display = 'block';
+        const bLink = document.getElementById('acc-boutique-page-link');
+        if (bLink) bLink.href = `lender-profile.html?lender=${user.lenderId || user.email}`;
+      } else {
+        document.getElementById('acc-role').textContent = 'VERIFIED RENTER';
+      }
+    });
+
+    // Handle Uploading Custom Photo from Computer / Phone
+    function handleUserAvatarUpload(input) {
+      if (!input.files || !input.files[0]) return;
+      const file = input.files[0];
+
+      // Validate image type
+      if (!file.type.startsWith('image/')) {
+        alert('Please select a valid image file (JPEG, PNG, WebP).');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        activeAvatarData = dataUrl;
+        document.getElementById('acc-avatar').src = dataUrl;
+        document.getElementById('prof-avatar-preview').src = dataUrl;
+
+        // Persist immediately in store
+        const user = PoshakhStore.getCurrentUser();
+        if (user) {
+          user.avatar = dataUrl;
+          PoshakhStore.setCurrentUser(user);
+          
+          // Also update top navbar avatar immediately
+          const navAvatar = document.querySelector('.user-avatar-sm');
+          if (navAvatar) navAvatar.src = dataUrl;
+
+          PoshakhUI.toast('Custom photo uploaded & saved successfully!', 'success');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleAvatarUrlChange(url) {
+      if (!url || !url.trim()) return;
+      activeAvatarData = url.trim();
+      document.getElementById('acc-avatar').src = activeAvatarData;
+      document.getElementById('prof-avatar-preview').src = activeAvatarData;
+
+      const user = PoshakhStore.getCurrentUser();
+      if (user) {
+        user.avatar = activeAvatarData;
+        PoshakhStore.setCurrentUser(user);
+        const navAvatar = document.querySelector('.user-avatar-sm');
+        if (navAvatar) navAvatar.src = activeAvatarData;
+        PoshakhUI.toast('Avatar image link updated!', 'success');
+      }
+    }
+
+    function switchAccountTab(tab, btn) {
+      ['profile', 'security', 'address'].forEach(t => {
+        document.getElementById(`tab-${t}`).style.display = (t === tab) ? 'block' : 'none';
+      });
+      document.querySelectorAll('.account-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function handleProfileUpdate(e) {
+      e.preventDefault();
+      const user = PoshakhStore.getCurrentUser();
+      if (!user) return;
+
+      user.name = document.getElementById('prof-name').value.trim();
+      user.phone = document.getElementById('prof-phone').value.trim();
+      user.city = document.getElementById('prof-city').value.trim();
+      if (activeAvatarData) {
+        user.avatar = activeAvatarData;
+      }
+
+      PoshakhStore.setCurrentUser(user);
+      document.getElementById('acc-name').textContent = user.name;
+      PoshakhUI.toast('Profile details updated successfully!', 'success');
+    }
+
+    function handlePasswordChange(e) {
+      e.preventDefault();
+      const n = document.getElementById('pass-new').value;
+      const c = document.getElementById('pass-confirm').value;
+      if (n !== c) {
+        alert('New passwords do not match. Please verify.');
+        return;
+      }
+      PoshakhUI.toast('Password changed securely!', 'success');
+      document.getElementById('pass-current').value = '';
+      document.getElementById('pass-new').value = '';
+      document.getElementById('pass-confirm').value = '';
+    }
+  </script>
+</body>
+</html>

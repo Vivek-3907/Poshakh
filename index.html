@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POSHAKH | Luxury Ethnic Wear Rental & Royal Couture</title>
+  <meta name="description" content="Rent exclusive Indian & Gujarati ethnic wear - Royal Lehengas, Patola Sarees, Groom Sherwanis & Festive Chaniya Cholis. Wear the celebration, return the rest.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    /* Home specific styles */
+    .hero-parallax-bg {
+      position: absolute;
+      top: -10%;
+      left: 0;
+      width: 100%;
+      height: 120%;
+      background-image: url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1920&q=85');
+      background-size: cover;
+      background-position: center 25%;
+      z-index: 0;
+      transform: translate3d(0, 0, 0);
+      will-change: transform;
+    }
+
+    .curved-model-card {
+      min-width: 280px;
+      height: 440px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(201, 154, 46, 0.3);
+      transition: transform 0.5s var(--ease-luxury), box-shadow 0.5s ease;
+      background: #120A0C;
+    }
+
+    .curved-model-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .curved-model-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .curved-card-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.8rem 1.4rem;
+      background: linear-gradient(to top, rgba(18, 10, 12, 0.92) 0%, rgba(18, 10, 12, 0) 100%);
+      color: #fff;
+    }
+
+    /* Featured Showcase */
+    .featured-showcase-grid {
+      display: grid;
+      grid-template-columns: 120px 1.2fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      border: 1px solid var(--border-gold);
+      box-shadow: var(--shadow-md);
+    }
+
+    .showcase-thumbs {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .showcase-thumb-item {
+      width: 85px;
+      height: 110px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .showcase-thumb-item.active, .showcase-thumb-item:hover {
+      border-color: var(--gold-antique);
+      transform: scale(1.05);
+    }
+
+    .showcase-thumb-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .showcase-main-stage {
+      position: relative;
+      height: 520px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      perspective: 1000px;
+    }
+
+    .showcase-main-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      transition: transform 0.6s var(--ease-luxury), opacity 0.4s ease;
+    }
+
+    /* Latest Trends Statement Section */
+    .trends-banner-section {
+      background: linear-gradient(135deg, #F9ECE8 0%, #E8F0F8 100%);
+      padding: 6rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .giant-statement-text {
+      font-family: var(--font-condensed);
+      font-size: clamp(3.8rem, 9vw, 8rem);
+      line-height: 0.88;
+      text-transform: uppercase;
+      color: rgba(90, 15, 31, 0.85);
+      letter-spacing: 2px;
+    }
+
+    .floating-tilt-card {
+      position: absolute;
+      right: 8%;
+      top: 50%;
+      transform: translateY(-50%) rotate(7deg);
+      width: 320px;
+      height: 450px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(18, 10, 12, 0.25);
+      border: 6px solid #fff;
+      transition: transform 0.6s ease;
+    }
+
+    .floating-tilt-card:hover {
+      transform: translateY(-52%) rotate(2deg) scale(1.05);
+    }
+
+    @media (max-width: 992px) {
+      .featured-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+      .showcase-thumbs {
+        flex-direction: row;
+        justify-content: center;
+      }
+      .floating-tilt-card {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin: 2rem auto 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Navbar Placeholder -->
+  <div id="poshakh-nav-header"></div>
+
+  <!-- SECTION 1: HERO - CINEMATIC PARALLAX BOUTIQUE -->
+  <section class="hero-section" id="hero">
+    <div class="hero-parallax-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="eyebrow" style="color: var(--gold-light);">ROYAL ETHNIC WARDROBE ON RENT</span>
+      <h1 class="hero-title">Wear the Celebration.<br><span class="text-script" style="font-size: 1.1em; color: #E5BE65;">Return the rest.</span></h1>
+      <p class="hero-subtitle">Bespoke Gujarati Patolas, Handcrafted Bridal Lehengas & Heritage Sherwanis</p>
+      <div style="display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;">
+        <a href="shop.html" class="btn btn-gold">Explore Collection</a>
+        <a href="login.html" class="btn btn-outline-white">Rent or Lend Outfits</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: WOVEN TO BE REMEMBERED (3D CURVED ROW OF TALL PORTRAIT CARDS) -->
+  <section style="padding: 6rem 0; overflow: hidden; background: var(--bg-ivory);">
+    <div class="container" style="text-align: center; margin-bottom: 2.5rem;">
+      <span class="eyebrow">HEIRLOOM CRAFTSMANSHIP</span>
+      <h2 style="font-size: 2.6rem; color: var(--wine-deep);">
+        Woven to Be <span class="text-script">Remembered</span>
+      </h2>
+      <p style="color: var(--text-muted); max-width: 600px; margin: 0.6rem auto 0;">
+        Hand-selected pieces from Gujarat and Rajasthan’s master artisans, reserved for life’s grandest milestones.
+      </p>
+    </div>
+
+    <!-- 3D Cylindrical Curved Row -->
+    <div class="curved-row" id="curved-models-row">
+      <!-- Card 1 -->
+      <div class="curved-model-card">
+        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=700&q=80" alt="Rajputi Bridal Velvet">
+        <div class="curved-card-caption">
+          <span class="badge badge-gold" style="margin-bottom: 6px;">Bridal Royal</span>
+          <h3 style="font-size: 1.2rem; color: #fff;">Rajputi Crimson Velvet</h3>
+          <p style="font-size: 0.82rem; color: var(--gold-light); margin-top: 4px;">₹3,800 / day</p>
+          <a href="product.html?id=d1" class="btn-ribbon" style="margin-top: 10px; display: inline-block;">Rent Now</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="curved-model-card">
+        <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=700&q=80" alt="Patan Patola Silk">
+        <div class="curved-card-caption">
+          <span class="badge badge-gold" style="margin-bottom: 6px;">Patan Heritage</span>
+          <h3 style="font-size: 1.2rem; color: #fff;">Double Ikkat Patola Saree</h3>
+          <p style="font-size: 0.82rem; color: var(--gold-light); margin-top: 4px;">₹2,400 / day</p>
+          <a href="product.html?id=d2" class="btn-ribbon" style="margin-top: 10px; display: inline-block;">Rent Now</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="curved-model-card">
+        <img src="https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?auto=format&fit=crop&w=700&q=80" alt="Emerald Raw Silk Sherwani">
+        <div class="curved-card-caption">
+          <span class="badge badge-gold" style="margin-bottom: 6px;">Groom Couture</span>
+          <h3 style="font-size: 1.2rem; color: #fff;">Royal Emerald Sherwani</h3>
+          <p style="font-size: 0.82rem; color: var(--gold-light); margin-top: 4px;">₹3,200 / day</p>
+          <a href="product.html?id=d3" class="btn-ribbon" style="margin-top: 10px; display: inline-block;">Rent Now</a>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="curved-model-card">
+        <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=700&q=80" alt="Navratri Mirror Work Choli">
+        <div class="curved-card-caption">
+          <span class="badge badge-gold" style="margin-bottom: 6px;">Garba Special</span>
+          <h3 style="font-size: 1.2rem; color: #fff;">12-Gher Abhla Choli</h3>
+          <p style="font-size: 0.82rem; color: var(--gold-light); margin-top: 4px;">₹1,800 / day</p>
+          <a href="product.html?id=d4" class="btn-ribbon" style="margin-top: 10px; display: inline-block;">Rent Now</a>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="curved-model-card">
+        <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?auto=format&fit=crop&w=700&q=80" alt="Blush Organza Lehenga">
+        <div class="curved-card-caption">
+          <span class="badge badge-gold" style="margin-bottom: 6px;">Sangeet Pastel</span>
+          <h3 style="font-size: 1.2rem; color: #fff;">Noorani Blush Organza</h3>
+          <p style="font-size: 0.82rem; color: var(--gold-light); margin-top: 4px;">₹2,900 / day</p>
+          <a href="product.html?id=d5" class="btn-ribbon" style="margin-top: 10px; display: inline-block;">Rent Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: NEW ARRIVALS + BEST SELLERS (HORIZONTAL SCROLL WITH 3D TILT CARDS) -->
+  <section style="padding: 5rem 0; background: #FAF5EB;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem;">
+        <div>
+          <span class="eyebrow">CURATED EDIT</span>
+          <h2 style="font-size: 2.4rem; color: var(--wine-deep);">New Arrivals & Best Sellers</h2>
+        </div>
+        <a href="shop.html" class="btn btn-outline" style="padding: 0.55rem 1.4rem; font-size: 0.8rem;">View All Outfits &rarr;</a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem;" id="home-featured-grid">
+        <!-- Rendered dynamically via JS or seeded directly -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: THE BRIDAL COLLECTION (DARK MAROON WITH WAVY DIVIDERS) -->
+  <div class="wavy-divider">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0,0 C150,90 350,-40 500,60 C650,160 900,10 1200,40 L1200,120 L0,120 Z" fill="#5A0F1F"></path>
+    </svg>
+  </div>
+
+  <section class="section-dark" id="bridal-section">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1.6fr; gap: 3.5rem; align-items: center;">
+        
+        <!-- Left Editorial Photo (Clean, Grand Framed Display) -->
+        <div>
+          <div style="border-radius: var(--radius-lg); overflow: hidden; border: 2px solid var(--gold-antique); box-shadow: 0 25px 60px rgba(0,0,0,0.5); position: relative;">
+            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=80" alt="Bridal Editorial" style="width: 100%; height: 500px; object-fit: cover;">
+            <div style="position: absolute; top: 1.2rem; left: 1.2rem;">
+              <span class="badge badge-gold">Royal Bridal Edit</span>
+            </div>
+          </div>
+          <div style="margin-top: 1.2rem; text-align: center;">
+            <a href="shop.html?category=Bridal" class="btn btn-gold" style="font-size: 0.82rem; padding: 0.75rem 2rem;">
+              View Complete Bridal Collection &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Right 5 Sliding Cards -->
+        <div>
+          <span class="eyebrow" style="color: var(--gold-light);">HANDCRAFTED ROYAL COUTURE</span>
+          <h2 style="font-size: 2.5rem; margin-bottom: 0.6rem;">The Bridal Masterpieces</h2>
+          <p style="color: #E2D6C5; font-size: 0.9rem; margin-bottom: 1.8rem; max-width: 540px;">
+            Authentic hand-zardozi micro-velvet lehengas, pure silk weaves, and heirloom sets curated for your grandest moments.
+          </p>
+          <div style="display: flex; gap: 1.4rem; overflow-x: auto; padding-bottom: 1.5rem; scrollbar-width: thin;" id="bridal-cards-row">
+            <!-- Bridal Cards dynamically populated -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="wavy-divider divider-dark-top">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0,0 C150,90 350,-40 500,60 C650,160 900,10 1200,40 L1200,120 L0,120 Z" fill="#5A0F1F"></path>
+    </svg>
+  </div>
+
+  <!-- SECTION 5: TREND OF THE DAY / OCCASIONAL SPECIAL -->
+  <section style="padding: 5rem 0; background: var(--bg-ivory);">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <span class="eyebrow">FESTIVE & CELEBRATION WEAR</span>
+        <h2 style="font-size: 2.4rem; color: var(--wine-deep);">Occasional Specials & Trends</h2>
+        <p style="color: var(--text-muted); max-width: 550px; margin: 0.5rem auto 0;">Rent showstopper ensembles for Sangeet, Mehendi, Cocktail, and Garba nights at a fraction of retail price.</p>
+      </div>
+
+      <!-- 2 Rows of curated cards with round gold "+" buttons -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem;" id="trends-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: FEATURED PRODUCT SHOWCASE (SYNCHRONIZED PHOTO + DETAILS SWITCHER) -->
+  <section style="padding: 5rem 0; background: #F6EFE2;">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 2.5rem;">
+        <span class="eyebrow">SPOTLIGHT COUTURE</span>
+        <h2 style="font-size: 2.3rem; color: var(--wine-deep);">Curator's Spotlight</h2>
+      </div>
+
+      <div class="featured-showcase-grid">
+        <!-- Left: Small Thumbnails ("Change look") -->
+        <div class="showcase-thumbs">
+          <span style="font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-antique); font-weight: 700; margin-bottom: 4px;">Change Look</span>
+          <div class="showcase-thumb-item active" onclick="selectShowcaseOutfit(0, this)">
+            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=200&q=80" alt="Rajputi Bridal Velvet">
+          </div>
+          <div class="showcase-thumb-item" onclick="selectShowcaseOutfit(1, this)">
+            <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=200&q=80" alt="Patan Patola Silk">
+          </div>
+          <div class="showcase-thumb-item" onclick="selectShowcaseOutfit(2, this)">
+            <img src="https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?auto=format&fit=crop&w=200&q=80" alt="Emerald Raw Silk Sherwani">
+          </div>
+        </div>
+
+        <!-- Middle: Large Model Photo -->
+        <div class="showcase-main-stage card-tilt-3d">
+          <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=80" alt="Spotlight Ensemble" id="featured-main-img" class="showcase-main-img">
+          <div style="position: absolute; top: 1rem; left: 1rem;">
+            <span class="badge badge-crimson" id="showcase-badge">Available Now</span>
+          </div>
+        </div>
+
+        <!-- Right: Name, Rent Price, Swatches, Curved Crimson Ribbon CTA (Fully Synchronized) -->
+        <div style="display: flex; flex-direction: column; justify-content: center;" id="showcase-text-col">
+          <span class="eyebrow" id="showcase-category">BRIDAL WEAR &bull; WEDDING</span>
+          <h3 style="font-size: 2rem; color: var(--wine-deep); margin-bottom: 0.6rem; transition: all 0.3s ease;" id="showcase-title">
+            Rajputi Crimson Bridal Velvet Lehenga
+          </h3>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.2rem; line-height: 1.6; transition: all 0.3s ease;" id="showcase-desc">
+            Tailored in luxurious micro velvet with antique zardozi work, royal peacock resham motifs, and dual scalloped tissue dupattas.
+          </p>
+
+          <div style="margin-bottom: 1.2rem;">
+            <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: #666; font-weight: 600;">Rental Price:</span>
+            <div style="font-size: 2rem; font-weight: 700; color: var(--wine-deep); line-height: 1.1;" id="showcase-price">
+              ₹3,800 <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-muted);">/ day</span>
+            </div>
+            <span style="font-size: 0.78rem; color: var(--gold-antique); font-weight: 600;" id="showcase-retail">
+              (Retail Value: ₹65,000 | Save 94%)
+            </span>
+          </div>
+
+          <!-- Color Swatches -->
+          <div style="margin-bottom: 1.2rem;">
+            <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: #666; font-weight: 600; display: block; margin-bottom: 6px;">Available Tones:</span>
+            <div style="display: flex; gap: 8px;" id="showcase-tones">
+              <span style="width: 26px; height: 26px; border-radius: 50%; background: #5A0F1F; border: 2px solid var(--gold-antique);" title="Crimson Wine"></span>
+              <span style="width: 26px; height: 26px; border-radius: 50%; background: #C99A2E; border: 1px solid #ccc;" title="Antique Gold"></span>
+            </div>
+          </div>
+
+          <!-- Size Chips -->
+          <div style="margin-bottom: 1.8rem;">
+            <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: #666; font-weight: 600; display: block; margin-bottom: 6px;">Available Sizes (3" Margins):</span>
+            <div style="display: flex; gap: 8px;" id="showcase-sizes">
+              <span class="badge badge-gold" style="padding: 6px 14px; font-size: 0.8rem;">S (34)</span>
+              <span class="badge badge-gold" style="padding: 6px 14px; font-size: 0.8rem;">M (36)</span>
+              <span class="badge badge-gold" style="padding: 6px 14px; font-size: 0.8rem;">L (38)</span>
+            </div>
+          </div>
+
+          <!-- Curved Crimson Ribbon "Rent Now" Button -->
+          <div>
+            <a href="product.html?id=d1" id="showcase-cta" class="btn-ribbon" style="font-size: 0.95rem; padding: 1rem 2.5rem; display: inline-block;">
+              RENT NOW &bull; RESERVE DATES
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: "WORTH YOUR ATTENTION" (B&W TO COLOR HOVER PHOTO STRIP) -->
+  <section style="padding: 6rem 0; background: var(--bg-dark); color: #fff;">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <span class="eyebrow" style="color: var(--gold-light);">EDITORIAL CURATION</span>
+        <h2 style="font-size: 2.5rem; color: #fff;">Worth Your Attention</h2>
+        <p style="color: #bbb; max-width: 550px; margin: 0.5rem auto 0;">Hover over any portrait to experience the vibrant royal weaves and handcrafted textures.</p>
+      </div>
+
+      <div class="photo-strip-container">
+        <!-- Item 1 -->
+        <div class="strip-item" onclick="window.location.href='product.html?id=d2'">
+          <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=700&q=80" alt="Patan Patola Saree">
+          <div class="strip-overlay">
+            <h4 style="font-size: 1.15rem; color: #fff;">Patan Patola Double Ikkat</h4>
+            <p style="font-size: 0.8rem; color: var(--gold-light);">From ₹2,400 / day</p>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="strip-item" onclick="window.location.href='product.html?id=d3'">
+          <img src="https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?auto=format&fit=crop&w=700&q=80" alt="Raw Silk Sherwani">
+          <div class="strip-overlay">
+            <h4 style="font-size: 1.15rem; color: #fff;">Emerald Raw Silk Sherwani</h4>
+            <p style="font-size: 0.8rem; color: var(--gold-light);">From ₹3,200 / day</p>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="strip-item" onclick="window.location.href='product.html?id=d4'">
+          <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=700&q=80" alt="Mirror Work Choli">
+          <div class="strip-overlay">
+            <h4 style="font-size: 1.15rem; color: #fff;">Kutch Mirror Chaniya Choli</h4>
+            <p style="font-size: 0.8rem; color: var(--gold-light);">From ₹1,800 / day</p>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="strip-item" onclick="window.location.href='product.html?id=d6'">
+          <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=700&q=80" alt="Banarasi Katan Silk">
+          <div class="strip-overlay">
+            <h4 style="font-size: 1.15rem; color: #fff;">Banarasi Pure Gold Brocade</h4>
+            <p style="font-size: 0.8rem; color: var(--gold-light);">From ₹2,200 / day</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: "LATEST TRENDS" (GIANT BOLD CONDENSED TEXT OVER PASTEL WITH FLOATING TILTED CARD) -->
+  <section class="trends-banner-section">
+    <div class="container" style="position: relative;">
+      <div style="max-width: 65%;">
+        <span class="eyebrow" style="color: var(--crimson-cta);">SEASONAL STATEMENT</span>
+        <div class="giant-statement-text">
+          LATEST<br>
+          TRENDS<br>
+          <span style="color: var(--gold-antique); font-family: var(--font-script); font-size: 0.7em; text-transform: none; display: block; margin-top: 10px;">for Royal Celebrations</span>
+        </div>
+        <p style="font-size: 1.1rem; color: #444; margin-top: 1.5rem; max-width: 500px;">
+          From Udaipur palace weddings to festive garba mandlis, explore what leading designers and influencers are donning this wedding season.
+        </p>
+        <div style="margin-top: 2rem;">
+          <a href="shop.html" class="btn btn-crimson">Browse Trending Outfits</a>
+        </div>
+      </div>
+
+      <!-- Floating Tilted 3D Photo Card -->
+      <div class="floating-tilt-card">
+        <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?auto=format&fit=crop&w=700&q=80" alt="Blush Lehenga Model" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9: FOOTER (LOGO, COLUMNS, DUPATTA IMAGE BANNER) -->
+  <footer style="background: #0E0709; color: #FAF5EB; padding-top: 5rem; position: relative;">
+    <div class="container" style="margin-bottom: 4rem;">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 3rem;">
+        
+        <!-- Brand Info -->
+        <div>
+          <span style="font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; color: #FAF5EB; letter-spacing: 2px;">POSHAKH</span>
+          <p style="font-family: var(--font-script); font-size: 1.4rem; color: var(--gold-antique); margin-top: -6px;">Wear the celebration. Return the rest.</p>
+          <p style="color: #9E968E; font-size: 0.88rem; margin-top: 1rem; line-height: 1.6; max-width: 320px;">
+            India’s luxury ethnic wear rental platform. Empowering boutique lenders and celebrating Indian heritage with sustainable high fashion.
+          </p>
+          <div style="margin-top: 1.2rem; display: flex; gap: 1rem; color: var(--gold-antique);">
+            <span>Ahmedabad</span> &bull; <span>Vadodara</span> &bull; <span>Surat</span> &bull; <span>Rajkot</span>
+          </div>
+        </div>
+
+        <!-- Col 1: Shop -->
+        <div>
+          <h4 style="font-size: 0.88rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1.2rem;">Shop</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.7rem; font-size: 0.85rem; color: #BBB;">
+            <li><a href="shop.html?category=Bridal" style="color: #BBB;">Bridal Lehengas</a></li>
+            <li><a href="shop.html?category=Saree" style="color: #BBB;">Patan Patola & Sarees</a></li>
+            <li><a href="shop.html?category=Sherwani" style="color: #BBB;">Groom Sherwanis</a></li>
+            <li><a href="shop.html?category=Chaniya%20Choli" style="color: #BBB;">Garba Chaniya Cholis</a></li>
+            <li><a href="shop.html?category=Indo-Western" style="color: #BBB;">Indo-Western Gowns</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 2: Support & Portals -->
+        <div>
+          <h4 style="font-size: 0.88rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1.2rem;">Explore</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.7rem; font-size: 0.85rem; color: #BBB;">
+            <li><a href="lender-profile.html?lender=radha" style="color: #BBB;">Radha Ethnic House</a></li>
+            <li><a href="chat.html" style="color: #BBB;">Bargain & Chat</a></li>
+            <li><a href="rentals.html" style="color: #BBB;">My Rentals & Timer</a></li>
+            <li><a href="login.html" style="color: #BBB;">Lender & Renter Login</a></li>
+            <li><a href="account.html" style="color: #BBB;">Manage Account</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Newsletter Email Subscribe -->
+        <div>
+          <h4 style="font-size: 0.88rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1.2rem;">Stay Updated</h4>
+          <p style="font-size: 0.85rem; color: #BBB; margin-bottom: 1rem;">Receive exclusive invitations to new bridal drop arrivals and festival rental slots.</p>
+          <div style="display: flex;">
+            <input type="email" placeholder="Enter your email" style="padding: 0.75rem 1rem; border: 1px solid var(--border-gold); background: #1C1215; color: #fff; font-size: 0.85rem; border-radius: 4px 0 0 4px; outline: none; width: 100%;">
+            <button onclick="PoshakhUI.toast('Thank you for subscribing to Poshakh Royal Gazette!', 'success')" style="background: var(--gold-antique); color: #120A0C; padding: 0.75rem 1.2rem; font-weight: 600; border-radius: 0 4px 4px 0;">Join</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Wide photo strip of models with red flowing royal dupatta across the bottom -->
+    <div style="position: relative; width: 100%; height: 180px; overflow: hidden; opacity: 0.85;">
+      <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1920&q=80" alt="Flowing royal red dupatta" style="width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: brightness(0.65);">
+      <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: rgba(18, 10, 12, 0.4);">
+        <p style="font-family: var(--font-serif); font-size: 1.3rem; letter-spacing: 3px; color: #FAF5EB; text-transform: uppercase;">
+          Crafted with reverence in Gujarat &bull; Worn with Pride
+        </p>
+      </div>
+    </div>
+
+    <div style="text-align: center; padding: 1.5rem; font-size: 0.78rem; color: #777; border-top: 1px solid rgba(255,255,255,0.06);">
+      &copy; 2026 POSHAKH LUXURY ETHNIC RENTALS. ALL RIGHTS RESERVED.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/ui-effects.js"></script>
+  <script>
+    // Populate dynamic sections on Home Page
+    document.addEventListener('DOMContentLoaded', () => {
+      const dresses = PoshakhStore.getDresses();
+
+      // Populate Best Sellers Grid (Section 3)
+      const featuredGrid = document.getElementById('home-featured-grid');
+      if (featuredGrid) {
+        featuredGrid.innerHTML = dresses.slice(0, 4).map(d => `
+          <div class="product-card card-tilt-3d">
+            <div class="product-image-wrapper">
+              <span class="product-badge-overlay badge badge-gold">${d.occasion}</span>
+              <img src="${d.images[0]}" alt="${d.name}" loading="lazy">
+              <button class="product-favorite-btn" title="Add to Wishlist">♥</button>
+            </div>
+            <div class="product-info">
+              <span class="product-category-tag">${d.category}</span>
+              <h3 class="product-title" title="${d.name}">${d.name}</h3>
+              <div class="product-lender-line">
+                <span>By</span> <a href="lender-profile.html?lender=${d.lenderId}">${d.lenderName}</a> &bull; ★ ${d.rating}
+              </div>
+              <div class="product-price-row">
+                <div class="product-rent-price">
+                  ₹${d.rentPrice.toLocaleString()} <span>/ day</span>
+                </div>
+                <a href="product.html?id=${d.id}" class="btn-ribbon">Rent Now</a>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Populate Bridal Sliding Cards (Section 4)
+      const bridalRow = document.getElementById('bridal-cards-row');
+      if (bridalRow) {
+        const bridalItems = dresses.filter(d => d.isBridal);
+        bridalRow.innerHTML = bridalItems.map(d => `
+          <div style="min-width: 240px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(201, 154, 46, 0.4); border-radius: var(--radius-md); padding: 1rem; flex-shrink: 0; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+            <div style="height: 290px; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 0.8rem;">
+              <img src="${d.images[0]}" alt="${d.name}" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h4 style="font-size: 1rem; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${d.name}</h4>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.6rem;">
+              <span style="font-size: 1.1rem; font-weight: 700; color: var(--gold-light);">₹${d.rentPrice.toLocaleString()} / day</span>
+            </div>
+            <a href="product.html?id=${d.id}" class="btn btn-gold" style="width: 100%; margin-top: 0.8rem; padding: 0.6rem 1rem; font-size: 0.75rem;">Rent Now</a>
+          </div>
+        `).join('');
+      }
+
+      // Populate Trend of Day (Section 5)
+      const trendsGrid = document.getElementById('trends-grid');
+      if (trendsGrid) {
+        trendsGrid.innerHTML = dresses.slice(4, 8).map(d => `
+          <div class="product-card card-tilt-3d">
+            <div class="product-image-wrapper" style="padding-top: 110%;">
+              <img src="${d.images[0]}" alt="${d.name}" loading="lazy">
+              <button onclick="window.location.href='product.html?id=${d.id}'" style="position: absolute; bottom: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; background: var(--gold-gradient); color: #120A0C; font-size: 1.4rem; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-gold);" title="Quick View & Rent">+</button>
+            </div>
+            <div class="product-info">
+              <span class="product-category-tag">${d.category}</span>
+              <h3 class="product-title">${d.name}</h3>
+              <div class="product-price-row">
+                <span style="font-weight: 700; color: var(--wine-deep); font-size: 1.1rem;">₹${d.rentPrice.toLocaleString()} / day</span>
+                <span class="product-deposit-tag">Deposit ₹${d.deposit}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Re-trigger 3D tilt bindings for dynamically inserted cards
+      setTimeout(() => {
+        PoshakhEffects.init3DTilt();
+      }, 300);
+    });
+
+    // Synchronized Spotlight Showcase Switcher for Section 6
+    const showcaseOutfits = [
+      {
+        id: 'd1',
+        title: 'Rajputi Crimson Bridal Velvet Lehenga',
+        category: 'BRIDAL WEAR • WEDDING',
+        desc: 'Tailored in luxurious micro velvet with antique zardozi work, royal peacock resham motifs, and dual scalloped tissue dupattas.',
+        price: '₹3,800',
+        retail: '(Retail Value: ₹65,000 | Save 94%)',
+        image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=80',
+        sizes: ['S (34)', 'M (36)', 'L (38)'],
+        tones: ['#5A0F1F', '#C99A2E']
+      },
+      {
+        id: 'd2',
+        title: 'Patan Patola Double Ikkat Heritage Saree',
+        category: 'HERITAGE GUJARATI • FESTIVE',
+        desc: 'Authentic 8-ply pure mulberry silk Patan Patola handwoven with traditional elephant & parrot motifs. A priceless Gujarati heirloom piece.',
+        price: '₹2,400',
+        retail: '(Retail Value: ₹45,000 | Save 95%)',
+        image: 'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=900&q=80',
+        sizes: ['Free Size (5.5m + Blouse)'],
+        tones: ['#B3122D', '#D4AF37', '#1E4620']
+      },
+      {
+        id: 'd3',
+        title: 'Royal Emerald Green Raw Silk Sherwani',
+        category: 'GROOM COUTURE • WEDDING',
+        desc: 'Regal groom sherwani tailored in rich bottle-green raw silk, accented with subtle antique gold threadwork, paired with churidar and a matching brocade stole.',
+        price: '₹3,200',
+        retail: '(Retail Value: ₹48,000 | Save 93%)',
+        image: 'https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?auto=format&fit=crop&w=900&q=80',
+        sizes: ['M (38)', 'L (40)', 'XL (42)'],
+        tones: ['#1B3F28', '#C99A2E']
+      }
+    ];
+
+    function selectShowcaseOutfit(idx, element) {
+      const outfit = showcaseOutfits[idx];
+      if (!outfit) return;
+
+      const mainImg = document.getElementById('featured-main-img');
+      const textCol = document.getElementById('showcase-text-col');
+
+      // Animate transition
+      if (mainImg) {
+        mainImg.style.opacity = '0.2';
+        mainImg.style.transform = 'scale(0.96) rotateY(15deg)';
+      }
+      if (textCol) {
+        textCol.style.opacity = '0.3';
+        textCol.style.transform = 'translateY(8px)';
+      }
+
+      setTimeout(() => {
+        if (mainImg) {
+          mainImg.src = outfit.image;
+          mainImg.alt = outfit.title;
+          mainImg.style.opacity = '1';
+          mainImg.style.transform = 'scale(1) rotateY(0deg)';
+        }
+
+        // Update all text and specifications
+        document.getElementById('showcase-title').textContent = outfit.title;
+        document.getElementById('showcase-category').textContent = outfit.category;
+        document.getElementById('showcase-desc').textContent = outfit.desc;
+        document.getElementById('showcase-price').innerHTML = `${outfit.price} <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-muted);">/ day</span>`;
+        document.getElementById('showcase-retail').textContent = outfit.retail;
+        document.getElementById('showcase-cta').href = `product.html?id=${outfit.id}`;
+
+        // Update sizes
+        const sizeContainer = document.getElementById('showcase-sizes');
+        if (sizeContainer) {
+          sizeContainer.innerHTML = outfit.sizes.map(s => `
+            <span class="badge badge-gold" style="padding: 6px 14px; font-size: 0.8rem;">${s}</span>
+          `).join('');
+        }
+
+        // Update tones
+        const tonesContainer = document.getElementById('showcase-tones');
+        if (tonesContainer) {
+          tonesContainer.innerHTML = outfit.tones.map(c => `
+            <span style="width: 26px; height: 26px; border-radius: 50%; background: ${c}; border: 2px solid var(--gold-antique);"></span>
+          `).join('');
+        }
+
+        if (textCol) {
+          textCol.style.opacity = '1';
+          textCol.style.transform = 'translateY(0)';
+        }
+      }, 220);
+
+      document.querySelectorAll('.showcase-thumb-item').forEach(el => el.classList.remove('active'));
+      element.classList.add('active');
+    }
+  </script>
+</body>
+</html>

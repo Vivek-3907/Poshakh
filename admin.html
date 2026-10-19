@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Governance Portal | POSHAKH Royal Couture</title>
+  <meta name="description" content="Super Admin command center for managing boutique lenders, customer complaints, dispute moderation, and platform messages.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .admin-wrapper {
+      padding: 7rem 0 5rem;
+    }
+
+    .admin-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Navbar Placeholder -->
+  <div id="poshakh-nav-header"></div>
+
+  <div class="container admin-wrapper">
+    
+    <!-- Top Header -->
+    <div style="background: #120A0C; color: #FAF5EB; border-radius: var(--radius-lg); padding: 2.2rem 2.8rem; margin-bottom: 2.5rem; border: 1px solid var(--gold-antique); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+      <div>
+        <span class="badge badge-gold" style="margin-bottom: 6px;">🛡️ Super Admin Control Center</span>
+        <h1 style="font-size: 2.2rem; color: #FAF5EB; line-height: 1.1;">Platform Governance & Moderation</h1>
+        <p style="color: #bbb; font-size: 0.88rem; margin-top: 4px;">Poshakh Luxury Ethnic Wear Network &bull; Gujarat State Operations</p>
+      </div>
+
+      <div style="display: flex; gap: 1rem;">
+        <a href="shop.html" class="btn btn-outline-white">Explore Shop</a>
+        <a href="account.html" class="btn btn-gold">Admin Account</a>
+      </div>
+    </div>
+
+    <!-- METRICS OVERVIEW -->
+    <div class="metrics-grid">
+      <div class="metric-tile card-tilt-3d">
+        <span class="metric-label">Active Boutique Lenders</span>
+        <div class="metric-value" id="stat-lender-count">3 Boutiques</div>
+        <span class="metric-change">Verified royal sellers</span>
+      </div>
+
+      <div class="metric-tile card-tilt-3d">
+        <span class="metric-label">Gross Platform Volume</span>
+        <div class="metric-value">₹5,24,000</div>
+        <span class="metric-change">↑ 38% Navratri & Wedding spike</span>
+      </div>
+
+      <div class="metric-tile card-tilt-3d">
+        <span class="metric-label">Total Catalog Outfits</span>
+        <div class="metric-value" id="stat-dress-count">8 Outfits</div>
+        <span class="metric-change">100% dry-cleaning certified</span>
+      </div>
+
+      <div class="metric-tile card-tilt-3d">
+        <span class="metric-label">Open Complaints</span>
+        <div class="metric-value" style="color: #c62828;" id="stat-complaint-count">1 Issue</div>
+        <span class="metric-change">Requires review</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1: MANAGE LENDERS & REMOVE / BAN ACTION -->
+    <div class="admin-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.4rem;">
+        <div>
+          <h2 style="font-size: 1.5rem; color: var(--wine-deep);">Registered Boutique Lenders</h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Manage verified lenders, inspect their rental count, or revoke boutique access.</p>
+        </div>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="table-luxury">
+          <thead>
+            <tr>
+              <th>Boutique & Owner</th>
+              <th>Location & Contact</th>
+              <th>Status</th>
+              <th>Listed Outfits</th>
+              <th>Customer Rating</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="lenders-table-body">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 2: COMPLAINTS & REPORTS MODERATION -->
+    <div class="admin-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.4rem;">
+        <div>
+          <h2 style="font-size: 1.5rem; color: var(--wine-deep);">Renter & Lender Complaints / Disputes</h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Investigate reported rental issues, fitting disputes, or security deposit claims.</p>
+        </div>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="table-luxury">
+          <thead>
+            <tr>
+              <th>Complaint ID</th>
+              <th>Filed By</th>
+              <th>Against Boutique</th>
+              <th>Subject & Details</th>
+              <th>Status</th>
+              <th>Admin Action</th>
+            </tr>
+          </thead>
+          <tbody id="complaints-table-body">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 3: DIRECT MESSAGE / WARNING BROADCAST TOOL -->
+    <div class="admin-card">
+      <h2 style="font-size: 1.5rem; color: var(--wine-deep); margin-bottom: 0.4rem;">Send Admin Alert / Direct Message to Lender</h2>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Communicate official policy notices, performance commendations, or compliance directives.</p>
+
+      <form onsubmit="handleSendAdminMessage(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Recipient Boutique</label>
+            <select id="admin-msg-target" class="form-select">
+              <option value="Radh123@gmail.com">Radha Ethnic House (Radh123@gmail.com)</option>
+              <option value="rajputana.heritage@gmail.com">Royal Rajputana Attire</option>
+              <option value="surat.heritage.silks@gmail.com">Surat Heritage Silks</option>
+              <option value="all">Broadcast to All Lenders</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message Category</label>
+            <select id="admin-msg-type" class="form-select">
+              <option value="info">General Advisory / Feature Announcement</option>
+              <option value="festive">Festive Commission Incentive</option>
+              <option value="warning">Compliance / Hygiene Warning</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Official Message Text</label>
+          <textarea id="admin-msg-text" class="form-textarea" rows="3" required placeholder="Type the directive or notice here..."></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end;">
+          <button type="submit" class="btn btn-gold">
+            Dispatch Official Notice &rarr;
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Guard page: Require Admin
+      const user = PoshakhAuth.requireAuth(['admin']);
+      if (!user) return;
+
+      loadAdminLenders();
+      loadAdminComplaints();
+      updateAdminStats();
+    });
+
+    function updateAdminStats() {
+      const lenders = PoshakhStore.getLenders();
+      const dresses = PoshakhStore.getDresses();
+      const complaints = PoshakhStore.getComplaints();
+
+      document.getElementById('stat-lender-count').textContent = `${lenders.length} Boutiques`;
+      document.getElementById('stat-dress-count').textContent = `${dresses.length} Outfits`;
+      const openCount = complaints.filter(c => c.status !== 'Resolved').length;
+      document.getElementById('stat-complaint-count').textContent = `${openCount} Issue${openCount === 1 ? '' : 's'}`;
+    }
+
+    function loadAdminLenders() {
+      const lenders = PoshakhStore.getLenders();
+      const dresses = PoshakhStore.getDresses();
+      const tbody = document.getElementById('lenders-table-body');
+      if (!tbody) return;
+
+      tbody.innerHTML = lenders.map(l => {
+        const outfitCount = dresses.filter(d => d.lenderId === l.id).length;
+        return `
+          <tr>
+            <td>
+              <div style="display: flex; align-items: center; gap: 0.9rem;">
+                <img src="${l.avatar}" alt="${l.name}" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-antique);">
+                <div>
+                  <strong style="color: var(--wine-deep);">${l.boutiqueName}</strong>
+                  <div style="font-size: 0.76rem; color: #777;">Proprietor: ${l.name} (${l.email})</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span style="font-size: 0.85rem;">${l.location}</span>
+              <div style="font-size: 0.74rem; color: #777;">${l.phone}</div>
+            </td>
+            <td>
+              <span class="badge badge-green">${l.status}</span>
+            </td>
+            <td>
+              <strong>${outfitCount}</strong> listed
+            </td>
+            <td>
+              ★ <strong>${l.rating}</strong> (${l.reviewsCount} reviews)
+            </td>
+            <td>
+              <button onclick="removeLenderItem('${l.id}', '${l.boutiqueName}')" style="background: #fff0f0; color: #c62828; border: 1px solid #ffcdd2; border-radius: var(--radius-sm); padding: 0.45rem 0.85rem; font-size: 0.75rem; font-weight: 600; cursor: pointer;">
+                ❌ Remove / Ban
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function removeLenderItem(id, name) {
+      if (confirm(`ADMIN CONFIRMATION:\nAre you sure you want to remove and ban "${name}" from the Poshakh platform?`)) {
+        PoshakhStore.removeLender(id);
+        PoshakhUI.toast(`Boutique "${name}" removed from platform.`, 'gold');
+        loadAdminLenders();
+        updateAdminStats();
+      }
+    }
+
+    function loadAdminComplaints() {
+      const complaints = PoshakhStore.getComplaints();
+      const tbody = document.getElementById('complaints-table-body');
+      if (!tbody) return;
+
+      tbody.innerHTML = complaints.map(c => `
+        <tr>
+          <td><strong style="color: var(--wine-deep); font-size: 0.85rem;">${c.id}</strong></td>
+          <td>${c.fromUser}</td>
+          <td><strong>${c.againstLender}</strong></td>
+          <td>
+            <div style="font-weight: 600; font-size: 0.88rem;">${c.subject}</div>
+            <div style="font-size: 0.78rem; color: #666; margin-top: 2px;">${c.details}</div>
+            ${c.actionTaken ? `<div style="font-size: 0.74rem; color: #2e7d32; margin-top: 4px;">✓ ${c.actionTaken}</div>` : ''}
+          </td>
+          <td>
+            <span class="badge ${c.status === 'Resolved' ? 'badge-green' : 'badge-crimson'}">${c.status}</span>
+          </td>
+          <td>
+            ${c.status !== 'Resolved' ? `
+              <button onclick="resolveComplaintItem('${c.id}')" class="btn btn-outline" style="padding: 0.35rem 0.75rem; font-size: 0.72rem;">
+                ✓ Resolve Issue
+              </button>
+            ` : `
+              <span style="font-size: 0.74rem; color: #777;">Closed</span>
+            `}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function resolveComplaintItem(id) {
+      const action = prompt('Enter resolution summary for dispute record:', 'Deposit held in escrow released. Lender and renter notified.');
+      if (action) {
+        PoshakhStore.resolveComplaint(id, action);
+        PoshakhUI.toast(`Complaint ${id} marked as resolved!`, 'success');
+        loadAdminComplaints();
+        updateAdminStats();
+      }
+    }
+
+    function handleSendAdminMessage(e) {
+      e.preventDefault();
+      const target = document.getElementById('admin-msg-target').value;
+      const text = document.getElementById('admin-msg-text').value;
+
+      PoshakhStore.addNotification({
+        targetEmail: target === 'all' ? 'Radh123@gmail.com' : target,
+        role: 'lender',
+        title: 'Official Notice from Poshakh Super Admin',
+        message: text,
+        type: 'admin'
+      });
+
+      PoshakhUI.toast('Official notification dispatched to lender successfully!', 'success');
+      document.getElementById('admin-msg-text').value = '';
+    }
+  </script>
+</body>
+</html>

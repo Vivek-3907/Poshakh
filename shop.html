@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Couture Rentals | POSHAKH Royal Outfits</title>
+  <meta name="description" content="Browse and rent designer bridal lehengas, authentic Patola sarees, groom sherwanis, and festive Gujarati chaniya cholis.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .shop-header-banner {
+      background: linear-gradient(rgba(18, 10, 12, 0.7), rgba(90, 15, 31, 0.85)), url('https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      padding: 7rem 0 3.5rem;
+      color: #fff;
+      text-align: center;
+    }
+
+    .shop-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2.5rem;
+      padding: 3rem 0 6rem;
+    }
+
+    .shop-filter-sidebar {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 1.8rem;
+      height: fit-content;
+      position: sticky;
+      top: 90px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-section-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--wine-deep);
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #f0e8d8;
+    }
+
+    .filter-pill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .filter-pill-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      color: var(--text-charcoal);
+      cursor: pointer;
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .filter-pill-item:hover, .filter-pill-item.active {
+      background: #F8F2E6;
+      color: var(--wine-deep);
+      font-weight: 600;
+    }
+
+    .shop-top-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .search-input-box {
+      display: flex;
+      align-items: center;
+      background: #FBF7F0;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      padding: 0.45rem 1.2rem;
+      width: 320px;
+    }
+
+    .search-input-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.88rem;
+      margin-left: 0.5rem;
+    }
+
+    @media (max-width: 992px) {
+      .shop-layout {
+        grid-template-columns: 1fr;
+      }
+      .shop-filter-sidebar {
+        position: relative;
+        top: 0;
+      }
+      .search-input-box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Navbar Placeholder -->
+  <div id="poshakh-nav-header"></div>
+
+  <!-- Header Banner -->
+  <div class="shop-header-banner">
+    <div class="container">
+      <span class="eyebrow" style="color: var(--gold-light);">ROYAL ETHNIC WARDROBE</span>
+      <h1 style="font-size: 3rem; color: #FAF5EB; margin-bottom: 0.5rem;">Couture Rental Catalog</h1>
+      <p style="color: #E2D6C5; font-size: 1rem; max-width: 550px; margin: 0 auto;">
+        Rent bridal lehengas, heritage sarees & bespoke sherwanis with guaranteed hygiene and perfect fitting.
+      </p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="shop-layout">
+      
+      <!-- Left Filters (Amazon-style luxury refinement) -->
+      <aside class="shop-filter-sidebar">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+          <h3 style="font-size: 1.1rem; color: var(--wine-deep);">Refine Search</h3>
+          <button onclick="resetFilters()" style="font-size: 0.75rem; color: var(--gold-antique); font-weight: 600;">Reset All</button>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-section-title">Outfit Category</div>
+        <div class="filter-pill-list" id="category-filter-list">
+          <div class="filter-pill-item active" onclick="setCategoryFilter('all', this)">
+            <span>All Categories</span>
+            <span style="font-size: 0.75rem; opacity: 0.7;" id="count-all">8</span>
+          </div>
+          <div class="filter-pill-item" onclick="setCategoryFilter('Lehenga', this)">
+            <span>Bridal & Sangeet Lehengas</span>
+            <span style="font-size: 0.75rem; opacity: 0.7;">2</span>
+          </div>
+          <div class="filter-pill-item" onclick="setCategoryFilter('Saree', this)">
+            <span>Patan Patola & Sarees</span>
+            <span style="font-size: 0.75rem; opacity: 0.7;">2</span>
+          </div>
+          <div class="filter-pill-item" onclick="setCategoryFilter('Sherwani', this)">
+            <span>Groom Sherwanis & Achkans</span>
+            <span style="font-size: 0.75rem; opacity: 0.7;">2</span>
+          </div>
+          <div class="filter-pill-item" onclick="setCategoryFilter('Chaniya Choli', this)">
+            <span>Garba & Chaniya Choli</span>
+            <span style="font-size: 0.75rem; opacity: 0.7;">1</span>
+          </div>
+          <div class="filter-pill-item" onclick="setCategoryFilter('Indo-Western', this)">
+            <span>Indo-Western & Gowns</span>
+            <span style="font-size: 0.75rem; opacity: 0.7;">1</span>
+          </div>
+        </div>
+
+        <!-- Occasion Filter -->
+        <div class="filter-section-title">Occasion</div>
+        <div class="filter-pill-list">
+          <div class="filter-pill-item active" onclick="setOccasionFilter('all', this)">All Occasions</div>
+          <div class="filter-pill-item" onclick="setOccasionFilter('Wedding', this)">Wedding & Phere</div>
+          <div class="filter-pill-item" onclick="setOccasionFilter('Sangeet', this)">Sangeet & Cocktail</div>
+          <div class="filter-pill-item" onclick="setOccasionFilter('Garba / Navratri', this)">Garba & Navratri</div>
+          <div class="filter-pill-item" onclick="setOccasionFilter('Reception', this)">Reception</div>
+        </div>
+
+        <!-- Size Chips Filter -->
+        <div class="filter-section-title">Size Options</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.6rem;" id="size-chips-box">
+          <button class="badge badge-gold" style="cursor: pointer;" onclick="toggleSizeFilter('S', this)">S (34)</button>
+          <button class="badge badge-gold" style="cursor: pointer;" onclick="toggleSizeFilter('M', this)">M (36)</button>
+          <button class="badge badge-gold" style="cursor: pointer;" onclick="toggleSizeFilter('L', this)">L (38)</button>
+          <button class="badge badge-gold" style="cursor: pointer;" onclick="toggleSizeFilter('XL', this)">XL (40)</button>
+          <button class="badge badge-gold" style="cursor: pointer;" onclick="toggleSizeFilter('Free Size', this)">Free Size</button>
+        </div>
+
+        <!-- Price Range Slider -->
+        <div class="filter-section-title">Max Daily Rent</div>
+        <div style="margin-bottom: 1.2rem;">
+          <input type="range" id="price-range" min="1500" max="6000" step="100" value="6000" oninput="handlePriceRange(this.value)" style="width: 100%; accent-color: var(--crimson-cta);">
+          <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">
+            <span>₹1,500</span>
+            <span id="price-range-val" style="font-weight: 700; color: var(--wine-deep);">Up to ₹6,000 / day</span>
+          </div>
+        </div>
+
+        <!-- Verified Boutiques Filter -->
+        <div class="filter-section-title">Verified Boutiques</div>
+        <div class="filter-pill-list" id="boutique-filter-list">
+          <div class="filter-pill-item active" onclick="setBoutiqueFilter('all', this)">
+            <span>All Royal Boutiques</span>
+          </div>
+          <div class="filter-pill-item" onclick="setBoutiqueFilter('radha', this)">
+            <span>Radha Ethnic House (Ahmedabad)</span>
+          </div>
+          <div class="filter-pill-item" onclick="setBoutiqueFilter('rajputana', this)">
+            <span>Royal Rajputana Attire (Vadodara)</span>
+          </div>
+          <div class="filter-pill-item" onclick="setBoutiqueFilter('surat_silks', this)">
+            <span>Surat Heritage Silks (Surat)</span>
+          </div>
+          <div class="filter-pill-item" onclick="setBoutiqueFilter('kutch_crafts', this)">
+            <span>Kutch Heritage Crafts (Bhuj)</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right Main Outfits Grid -->
+      <main>
+        <!-- Top Controls: Search & Sort -->
+        <div class="shop-top-controls">
+          <div class="search-input-box">
+            <span>🔍</span>
+            <input type="text" id="shop-search" placeholder="Search lehenga, patola, sherwani..." oninput="handleSearch(this.value)">
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.8rem;">
+            <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 500;">Sort By:</span>
+            <select id="shop-sort" class="form-select" style="padding: 0.5rem 1rem; font-size: 0.85rem; width: auto;" onchange="handleSort(this.value)">
+              <option value="featured">Royal Featured</option>
+              <option value="price_low">Price: Low to High</option>
+              <option value="price_high">Price: High to Low</option>
+              <option value="rating">Top Rated (★)</option>
+              <option value="popular">Most Rented</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Results Counter -->
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem;" id="results-count">
+          Showing 8 exquisite royal outfits
+        </div>
+
+        <!-- Products Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem;" id="shop-grid">
+          <!-- Rendered dynamically -->
+        </div>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/ui-effects.js"></script>
+  <script>
+    let allDresses = [];
+    let currentCategory = 'all';
+    let currentOccasion = 'all';
+    let currentBoutique = 'all';
+    let currentMaxPrice = 6000;
+    let currentSearch = '';
+    let currentSort = 'featured';
+    let selectedSizes = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      allDresses = PoshakhStore.getDresses();
+
+      // Check URL parameters for pre-selected category
+      const urlParams = new URLSearchParams(window.location.search);
+      const catParam = urlParams.get('category');
+      if (catParam) {
+        if (catParam.toLowerCase() === 'bridal') {
+          currentCategory = 'Bridal';
+        } else {
+          currentCategory = catParam;
+        }
+        const matchCat = Array.from(document.querySelectorAll('#category-filter-list .filter-pill-item')).find(el => {
+          return el.textContent.toLowerCase().includes(catParam.toLowerCase());
+        });
+        if (matchCat) {
+          document.querySelectorAll('#category-filter-list .filter-pill-item').forEach(el => el.classList.remove('active'));
+          matchCat.classList.add('active');
+        }
+      }
+
+      // Check URL parameters for pre-selected boutique/lender
+      const boutiqueParam = urlParams.get('boutique') || urlParams.get('lender');
+      if (boutiqueParam) {
+        currentBoutique = boutiqueParam;
+        const matchPill = Array.from(document.querySelectorAll('#boutique-filter-list .filter-pill-item')).find(el => {
+          return el.getAttribute('onclick') && el.getAttribute('onclick').includes(`'${boutiqueParam}'`);
+        });
+        if (matchPill) {
+          document.querySelectorAll('#boutique-filter-list .filter-pill-item').forEach(el => el.classList.remove('active'));
+          matchPill.classList.add('active');
+        }
+      }
+
+      renderShopItems();
+    });
+
+    function setCategoryFilter(cat, element) {
+      currentCategory = cat;
+      document.querySelectorAll('#category-filter-list .filter-pill-item').forEach(el => el.classList.remove('active'));
+      if (element) element.classList.add('active');
+      renderShopItems();
+    }
+
+    function setOccasionFilter(occ, element) {
+      currentOccasion = occ;
+      element.parentElement.querySelectorAll('.filter-pill-item').forEach(el => el.classList.remove('active'));
+      element.classList.add('active');
+      renderShopItems();
+    }
+
+    function setBoutiqueFilter(boutiqueId, element) {
+      currentBoutique = boutiqueId;
+      document.querySelectorAll('#boutique-filter-list .filter-pill-item').forEach(el => el.classList.remove('active'));
+      if (element) element.classList.add('active');
+      renderShopItems();
+    }
+
+    function toggleSizeFilter(size, element) {
+      const idx = selectedSizes.indexOf(size);
+      if (idx >= 0) {
+        selectedSizes.splice(idx, 1);
+        element.style.background = '';
+        element.style.color = '';
+      } else {
+        selectedSizes.push(size);
+        element.style.background = 'var(--wine-deep)';
+        element.style.color = '#fff';
+      }
+      renderShopItems();
+    }
+
+    function handlePriceRange(val) {
+      currentMaxPrice = Number(val);
+      document.getElementById('price-range-val').textContent = `Up to ₹${currentMaxPrice.toLocaleString()} / day`;
+      renderShopItems();
+    }
+
+    function handleSearch(val) {
+      currentSearch = (val || '').toLowerCase().trim();
+      renderShopItems();
+    }
+
+    function handleSort(val) {
+      currentSort = val;
+      renderShopItems();
+    }
+
+    function resetFilters() {
+      currentCategory = 'all';
+      currentOccasion = 'all';
+      currentBoutique = 'all';
+      currentMaxPrice = 6000;
+      currentSearch = '';
+      currentSort = 'featured';
+      selectedSizes = [];
+      document.getElementById('shop-search').value = '';
+      document.getElementById('price-range').value = 6000;
+      document.getElementById('price-range-val').textContent = 'Up to ₹6,000 / day';
+      
+      document.querySelectorAll('#category-filter-list .filter-pill-item').forEach((el, idx) => {
+        if (idx === 0) el.classList.add('active');
+        else el.classList.remove('active');
+      });
+      document.querySelectorAll('#boutique-filter-list .filter-pill-item').forEach((el, idx) => {
+        if (idx === 0) el.classList.add('active');
+        else el.classList.remove('active');
+      });
+      document.querySelectorAll('#size-chips-box button').forEach(b => {
+        b.style.background = '';
+        b.style.color = '';
+      });
+      renderShopItems();
+    }
+
+    function renderShopItems() {
+      let filtered = allDresses.filter(d => {
+        // Category filter
+        if (currentCategory === 'Bridal') {
+          if (!d.isBridal) return false;
+        } else if (currentCategory !== 'all') {
+          if (d.category.toLowerCase() !== currentCategory.toLowerCase()) return false;
+        }
+
+        // Occasion filter
+        if (currentOccasion !== 'all' && d.occasion !== currentOccasion) return false;
+
+        // Boutique filter
+        if (currentBoutique !== 'all') {
+          if (d.lenderId !== currentBoutique && d.lenderEmail !== currentBoutique) return false;
+        }
+
+        // Price filter
+        if (d.rentPrice > currentMaxPrice) return false;
+
+        // Size filter
+        if (selectedSizes.length > 0) {
+          const hasSize = d.sizes.some(s => selectedSizes.includes(s));
+          if (!hasSize) return false;
+        }
+
+        // Search filter
+        if (currentSearch) {
+          const matchName = d.name.toLowerCase().includes(currentSearch);
+          const matchCat = d.category.toLowerCase().includes(currentSearch);
+          const matchFab = (d.fabric || '').toLowerCase().includes(currentSearch);
+          const matchDesc = (d.description || '').toLowerCase().includes(currentSearch);
+          if (!matchName && !matchCat && !matchFab && !matchDesc) return false;
+        }
+
+        return true;
+      });
+
+      // Sorting
+      if (currentSort === 'price_low') {
+        filtered.sort((a, b) => a.rentPrice - b.rentPrice);
+      } else if (currentSort === 'price_high') {
+        filtered.sort((a, b) => b.rentPrice - a.rentPrice);
+      } else if (currentSort === 'rating') {
+        filtered.sort((a, b) => b.rating - a.rating);
+      } else if (currentSort === 'popular') {
+        filtered.sort((a, b) => b.timesRented - a.timesRented);
+      }
+
+      // Update count
+      const countEl = document.getElementById('results-count');
+      if (countEl) {
+        countEl.textContent = `Showing ${filtered.length} exquisite royal outfit${filtered.length === 1 ? '' : 's'}`;
+      }
+
+      const grid = document.getElementById('shop-grid');
+      if (!grid) return;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem; background: #fff; border-radius: var(--radius-md); border: 1px dashed var(--border-gold);">
+            <span style="font-size: 3rem;">👑</span>
+            <h3 style="font-size: 1.4rem; color: var(--wine-deep); margin-top: 1rem;">No Outfits Matched Your Filter</h3>
+            <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.9rem;">Try adjusting the price slider or resetting your filters to explore our full royal collection.</p>
+            <button onclick="resetFilters()" class="btn btn-gold" style="margin-top: 1.5rem;">Reset All Filters</button>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(d => `
+        <div class="product-card card-tilt-3d">
+          <div class="product-image-wrapper">
+            <span class="product-badge-overlay badge badge-gold">${d.occasion}</span>
+            <img src="${d.images[0]}" alt="${d.name}" loading="lazy">
+            <button class="product-favorite-btn" title="Save to Favorites">♥</button>
+          </div>
+          <div class="product-info">
+            <span class="product-category-tag">${d.category} &bull; ${d.sizes.join(', ')}</span>
+            <h3 class="product-title" title="${d.name}">
+              <a href="product.html?id=${d.id}">${d.name}</a>
+            </h3>
+            <div class="product-lender-line">
+              <span>Boutique:</span>
+              <a href="lender-profile.html?lender=${d.lenderId}">${d.lenderName}</a>
+              <span>&bull; ★ ${d.rating}</span>
+            </div>
+            <div style="font-size: 0.76rem; color: #777; margin-bottom: 0.6rem;">
+              Refundable Deposit: <strong>₹${d.deposit.toLocaleString()}</strong>
+            </div>
+            <div class="product-price-row">
+              <div class="product-rent-price">
+                ₹${d.rentPrice.toLocaleString()} <span>/ day</span>
+              </div>
+              <a href="product.html?id=${d.id}" class="btn-ribbon">Rent Now</a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      setTimeout(() => {
+        PoshakhEffects.init3DTilt();
+      }, 200);
+    }
+  </script>
+</body>
+</html>

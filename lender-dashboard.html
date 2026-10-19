@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lender Dashboard | Radha Ethnic House - POSHAKH</title>
+  <meta name="description" content="Dedicated boutique dashboard for tracking rental bookings, catalog performance, revenue analytics, and customer inquiries.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .dashboard-wrapper {
+      padding: 7rem 0 5rem;
+    }
+
+    .analytics-filter-bar {
+      background: #fff;
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.6rem;
+      margin-bottom: 2.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dashboard-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Navbar Placeholder -->
+  <div id="poshakh-nav-header"></div>
+
+  <div class="container dashboard-wrapper">
+    
+    <!-- Top Welcome Banner (Dynamically Bound to Active Lender) -->
+    <div style="background: linear-gradient(135deg, #5A0F1F 0%, #120A0C 100%); color: #fff; border-radius: var(--radius-lg); padding: 2.5rem; margin-bottom: 2.5rem; border: 1px solid var(--gold-antique); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; box-shadow: var(--shadow-lg);">
+      <div style="display: flex; align-items: center; gap: 1.4rem;">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt="Boutique Owner" id="dash-lender-avatar" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold-antique);">
+        <div>
+          <span class="badge badge-gold" style="margin-bottom: 6px;">👑 Verified Royal Boutique</span>
+          <h1 style="font-size: 2.2rem; color: #FAF5EB; line-height: 1.1;" id="dash-boutique-title">My Boutique Studio</h1>
+          <p style="color: #E2D6C5; font-size: 0.88rem; margin-top: 4px;" id="dash-boutique-sub">Loading boutique details...</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem;">
+        <a href="manage-dresses.html" class="btn btn-gold">+ Add / Manage Dresses</a>
+        <a href="lender-profile.html" id="dash-view-boutique-link" class="btn btn-outline-white">View Boutique Page</a>
+      </div>
+    </div>
+
+    <!-- KEY PERFORMANCE METRICS TILES -->
+    <div class="metrics-grid">
+      <div class="metric-tile card-tilt-3d">
+        <span class="metric-label">Total Rental Revenue</span>
+        <div class="metric-value" id="stat-revenue">₹0</div>
+        <span class="metric-change" id="stat-revenue-change">Live earnings from rentals</span>
+      </div>
+
+      <div class="metric-tile card-tilt-3d">
+        <span class="metric-label">Online Active Dresses</span>
+        <div class="metric-value" id="stat-active-dresses">0 Outfits</div>
+        <span class="metric-change">Live in Poshakh catalog</span>
+      </div>
+
+      <div class="metric-tile card-tilt-3d">
+        <span class="metric-label">Delighted Customers</span>
+        <div class="metric-value" id="stat-customers">0 Clients</div>
+        <span class="metric-change" id="stat-rating">★ 5.0 (0 Reviews)</span>
+      </div>
+
+      <div class="metric-tile card-tilt-3d">
+        <span class="metric-label">Currently Rented Out</span>
+        <div class="metric-value" style="color: #2e7d32;" id="stat-rented-now">0 Dresses</div>
+        <span class="metric-change">Active rentals</span>
+      </div>
+    </div>
+
+    <!-- ANALYTICS FILTER: FIND OUT WHICH DRESSES ARE RENTED MOST FREQUENTLY -->
+    <div class="analytics-filter-bar">
+      <div>
+        <h3 style="font-size: 1.1rem; color: var(--wine-deep); margin-bottom: 2px;">Rental Performance & Demand Insights</h3>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">Identify high-demand couture categories and maximize your rental yield.</p>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <span style="font-size: 0.82rem; font-weight: 600; color: #666;">Filter By:</span>
+        <select class="form-select" id="analytics-filter" style="width: auto; padding: 0.5rem 1rem; font-size: 0.85rem;" onchange="filterTopDresses(this.value)">
+          <option value="most_rented">Most Frequently Rented Out</option>
+          <option value="highest_revenue">Highest Revenue Generating</option>
+          <option value="bridal_only">Bridal Couture Only</option>
+          <option value="trending">Currently Trending In Gujarat</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- TOP PERFORMING DRESSES INSIGHT CARDS -->
+    <div style="margin-bottom: 3.5rem;">
+      <div class="dashboard-section-header">
+        <div>
+          <h2 style="font-size: 1.6rem; color: var(--wine-deep);">Rental Demand Leaderboard</h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Real-time demand ranking of your boutique outfits.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;" id="leaderboard-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- LATEST 3-4 DRESSES QUICK SHOWCASE WITH EDIT & DELETE -->
+    <div>
+      <div class="dashboard-section-header">
+        <div>
+          <h2 style="font-size: 1.6rem; color: var(--wine-deep);">Latest Added Outfits (Quick Actions)</h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Quickly edit pricing, modify details, or delete outfits.</p>
+        </div>
+        <a href="manage-dresses.html" class="btn btn-outline" style="padding: 0.5rem 1.2rem; font-size: 0.8rem;">
+          View Full Catalog (All Outfits) &rarr;
+        </a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem;" id="latest-dresses-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/ui-effects.js"></script>
+  <script>
+    let activeUser = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Guard page: Require Lender or Admin
+      activeUser = PoshakhAuth.requireAuth(['lender', 'admin']);
+      if (!activeUser) return;
+
+      // Update boutique header dynamically for this specific user
+      const boutiqueName = activeUser.boutiqueName || (activeUser.name + "'s Ethnic Studio");
+      document.getElementById('dash-boutique-title').textContent = boutiqueName;
+      document.getElementById('dash-boutique-sub').textContent = `Managed by ${activeUser.name} • ${activeUser.email}`;
+      if (activeUser.avatar) {
+        document.getElementById('dash-lender-avatar').src = activeUser.avatar;
+      }
+      document.getElementById('dash-view-boutique-link').href = `lender-profile.html?lender=${activeUser.lenderId || activeUser.email}`;
+
+      renderDashboardDresses();
+      filterTopDresses('most_rented');
+    });
+
+    function getMyDresses() {
+      if (!activeUser) return [];
+      const all = PoshakhStore.getDresses();
+      return all.filter(d => {
+        if (activeUser.lenderId && d.lenderId === activeUser.lenderId) return true;
+        if (d.lenderEmail && d.lenderEmail.toLowerCase() === activeUser.email.toLowerCase()) return true;
+        return false;
+      });
+    }
+
+    function renderDashboardDresses() {
+      const myDresses = getMyDresses();
+
+      // Calculate dynamic revenue and customer stats
+      let totalRevenue = 0;
+      let totalRentals = 0;
+      myDresses.forEach(d => {
+        const times = d.timesRented || 0;
+        totalRevenue += times * d.rentPrice;
+        totalRentals += times;
+      });
+
+      document.getElementById('stat-active-dresses').textContent = `${myDresses.length} Outfits`;
+      document.getElementById('stat-revenue').textContent = `₹${totalRevenue.toLocaleString()}`;
+      document.getElementById('stat-customers').textContent = `${Math.floor(totalRentals * 1.2)} Clients`;
+      document.getElementById('stat-rented-now').textContent = `${Math.min(myDresses.length, Math.floor(totalRentals / 6))} Dresses`;
+
+      // Show ONLY latest 3 to 4 dresses as requested
+      const latestDresses = myDresses.slice(0, 4);
+      const container = document.getElementById('latest-dresses-grid');
+      
+      if (!container) return;
+
+      if (latestDresses.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; background: #fff; border-radius: var(--radius-md); padding: 3rem; text-align: center; border: 1px dashed var(--border-gold);">
+            <span style="font-size: 2.5rem;">👗</span>
+            <h3 style="font-size: 1.3rem; color: var(--wine-deep); margin: 0.8rem 0 0.4rem;">No Outfits Added Yet</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Start building your rental catalog to receive customer bookings and earn revenue.</p>
+            <a href="manage-dresses.html" class="btn btn-gold">+ Add Your First Outfit</a>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = latestDresses.map(d => `
+        <div class="product-card card-tilt-3d">
+          <div class="product-image-wrapper">
+            <span class="product-badge-overlay badge badge-gold">${d.occasion}</span>
+            <img src="${d.images[0]}" alt="${d.name}">
+          </div>
+          <div class="product-info">
+            <span class="product-category-tag">${d.category}</span>
+            <h3 class="product-title">${d.name}</h3>
+            <div style="font-size: 0.82rem; color: var(--wine-deep); font-weight: 700; margin: 4px 0;">
+              ₹${d.rentPrice.toLocaleString()} / day &bull; Deposit ₹${d.deposit.toLocaleString()}
+            </div>
+            <div style="font-size: 0.75rem; color: #777; margin-bottom: 0.8rem;">
+              Times Rented: <strong>${d.timesRented || 0} times</strong>
+            </div>
+
+            <!-- Edit & Delete Quick Actions -->
+            <div style="display: flex; gap: 8px; margin-top: auto; border-top: 1px dashed #eee; padding-top: 0.8rem;">
+              <a href="manage-dresses.html?edit=${d.id}" class="btn btn-outline" style="flex: 1; padding: 0.5rem; font-size: 0.76rem; text-align: center;">
+                ✏️ Edit
+              </a>
+              <button onclick="handleQuickDelete('${d.id}')" style="background: #fff0f0; color: #c62828; border: 1px solid #ffcdd2; border-radius: var(--radius-sm); padding: 0.5rem 0.9rem; font-size: 0.76rem; font-weight: 600; cursor: pointer;">
+                🗑️ Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      setTimeout(() => {
+        PoshakhEffects.init3DTilt();
+      }, 200);
+    }
+
+    function filterTopDresses(criteria) {
+      let dresses = [...getMyDresses()];
+
+      if (dresses.length === 0) {
+        const grid = document.getElementById('leaderboard-grid');
+        if (grid) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; background: #fff; padding: 2rem; text-align: center; border-radius: var(--radius-sm); color: #888; font-size: 0.9rem;">
+              Demand insights will appear here once you list outfits and receive rental orders.
+            </div>
+          `;
+        }
+        return;
+      }
+
+      if (criteria === 'most_rented') {
+        dresses.sort((a, b) => (b.timesRented || 0) - (a.timesRented || 0));
+      } else if (criteria === 'highest_revenue') {
+        dresses.sort((a, b) => ((b.timesRented || 0) * b.rentPrice) - ((a.timesRented || 0) * a.rentPrice));
+      } else if (criteria === 'bridal_only') {
+        dresses = dresses.filter(d => d.isBridal);
+      } else if (criteria === 'trending') {
+        dresses = dresses.filter(d => d.isTrending);
+      }
+
+      const grid = document.getElementById('leaderboard-grid');
+      if (!grid) return;
+
+      grid.innerHTML = dresses.slice(0, 3).map((d, i) => {
+        const estRevenue = (d.timesRented || 0) * d.rentPrice;
+        return `
+          <div style="background: #fff; border: 1px solid var(--border-gold); border-radius: var(--radius-md); padding: 1.4rem; box-shadow: var(--shadow-sm); display: flex; gap: 1rem; align-items: center;">
+            <div style="font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: var(--gold-antique); min-width: 32px;">
+              #${i + 1}
+            </div>
+            <img src="${d.images[0]}" alt="${d.name}" style="width: 70px; height: 90px; border-radius: var(--radius-sm); object-fit: cover;">
+            <div>
+              <h4 style="font-size: 0.95rem; color: var(--wine-deep); line-height: 1.3;">${d.name}</h4>
+              <span class="badge badge-gold" style="font-size: 0.68rem; margin: 4px 0;">${d.timesRented || 0} Total Bookings</span>
+              <div style="font-size: 0.8rem; color: #2e7d32; font-weight: 600;">
+                Est. Revenue: ₹${estRevenue.toLocaleString()}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleQuickDelete(id) {
+      if (confirm('Are you sure you want to remove this outfit from your rental inventory?')) {
+        PoshakhStore.deleteDress(id);
+        PoshakhUI.toast('Outfit deleted successfully!', 'success');
+        renderDashboardDresses();
+        filterTopDresses(document.getElementById('analytics-filter').value);
+      }
+    }
+  </script>
+</body>
+</html>
+  </script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+/* ==========================================================================
+   POSHAKH - Premium Ethnic Wear Rental Design System
+   Luxury Editorial Aesthetic | Royal | Festive | Warm
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Brand Color Palette */
+  --bg-ivory: #FBF7F0;
+  --bg-card: #FFFFFF;
+  --bg-dark: #120A0C;
+  --wine-deep: #5A0F1F;
+  --wine-dark: #3F0914;
+  --wine-light: #7A1A2E;
+  
+  --gold-antique: #C99A2E;
+  --gold-light: #E5BE65;
+  --gold-pale: #F7EBD3;
+  --gold-gradient: linear-gradient(135deg, #E5BE65 0%, #C99A2E 50%, #9B701B 100%);
+  
+  --crimson-cta: #B3122D;
+  --crimson-hover: #D11736;
+  --crimson-gradient: linear-gradient(135deg, #D11736 0%, #B3122D 60%, #850B20 100%);
+
+  --text-charcoal: #1E1A1A;
+  --text-muted: #7A726D;
+  --text-light: #FBF7F0;
+  
+  --border-subtle: rgba(201, 154, 46, 0.22);
+  --border-gold: rgba(201, 154, 46, 0.5);
+  
+  /* Elevation & Shadows */
+  --shadow-sm: 0 4px 12px rgba(18, 10, 12, 0.05);
+  --shadow-md: 0 10px 30px rgba(18, 10, 12, 0.09);
+  --shadow-lg: 0 20px 50px rgba(18, 10, 12, 0.15);
+  --shadow-gold: 0 8px 24px rgba(201, 154, 46, 0.28);
+  --shadow-crimson: 0 8px 25px rgba(179, 18, 45, 0.35);
+
+  /* Typography */
+  --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-accent: 'Cormorant Garamond', serif;
+  --font-script: 'Great Vibes', cursive;
+  --font-condensed: 'Bebas Neue', 'Anton', sans-serif;
+  --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Transitions */
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-smooth: 0.6s;
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--bg-ivory);
+  color: var(--text-charcoal);
+  font-family: var(--font-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--bg-ivory);
+  line-height: 1.6;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+/* Luxury Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text-charcoal);
+}
+
+.text-gold {
+  color: var(--gold-antique) !important;
+}
+
+.text-wine {
+  color: var(--wine-deep) !important;
+}
+
+.text-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: 1.4em;
+  color: var(--gold-antique);
+  letter-spacing: 1px;
+}
+
+.font-condensed {
+  font-family: var(--font-condensed);
+  letter-spacing: 2px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--gold-antique);
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+
+.eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--gold-antique);
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.container-narrow {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2.2rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  transition: all 0.4s var(--ease-luxury);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gold {
+  background: var(--gold-gradient);
+  color: #120A0C;
+  font-weight: 600;
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-gold:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(201, 154, 46, 0.45);
+}
+
+.btn-crimson {
+  background: var(--crimson-gradient);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: var(--shadow-crimson);
+}
+
+.btn-crimson:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(179, 18, 45, 0.5);
+}
+
+/* Curved Ribbon "Rent Now" Button */
+.btn-ribbon {
+  background: var(--crimson-gradient);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 1.8rem;
+  font-size: 0.82rem;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  border-radius: 4px 18px 4px 18px;
+  box-shadow: 0 6px 18px rgba(179, 18, 45, 0.4);
+  position: relative;
+  transition: all 0.35s ease;
+  clip-path: polygon(0 0, 100% 0, 93% 100%, 0 100%);
+  padding-right: 2.2rem;
+}
+
+.btn-ribbon:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 10px 25px rgba(179, 18, 45, 0.55);
+}
+
+.btn-outline {
+  border: 1px solid var(--gold-antique);
+  color: var(--text-charcoal);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--gold-antique);
+  color: #120A0C;
+}
+
+.btn-outline-white {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: #ffffff;
+  background: transparent;
+}
+
+.btn-outline-white:hover {
+  background: #ffffff;
+  color: var(--wine-deep);
+}
+
+/* 3D Perspective & Curved Cylindrical Row */
+.perspective-container {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.curved-row {
+  display: flex;
+  gap: 1.8rem;
+  padding: 2rem 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  perspective: 1400px;
+}
+
+.curved-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* 3D Interactive Tilt Card */
+.card-tilt-3d {
+  transition: transform 0.4s var(--ease-luxury), box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
+}
+
+.card-tilt-3d:hover {
+  transform: translateY(-8px) rotateX(4deg) rotateY(-4deg);
+  box-shadow: 0 25px 50px rgba(18, 10, 12, 0.22);
+}
+
+/* Card Glare Effect */
+.card-tilt-3d::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.card-tilt-3d:hover::after {
+  opacity: 1;
+}
+
+/* Section Dividers: Luxury Wavy SVG */
+.wavy-divider {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.wavy-divider svg {
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 60px;
+}
+
+.divider-dark-top {
+  transform: rotate(180deg);
+}
+
+/* Dark Maroon Luxury Sections */
+.section-dark {
+  background-color: var(--wine-deep);
+  color: #FBF7F0;
+  position: relative;
+  padding: 6rem 0;
+}
+
+.section-dark h1, .section-dark h2, .section-dark h3 {
+  color: #FBF7F0;
+}
+
+.section-dark .eyebrow {
+  color: var(--gold-light);
+}
+
+.section-dark .eyebrow::after {
+  background: var(--gold-light);
+}
+
+.section-black {
+  background-color: var(--bg-dark);
+  color: #FBF7F0;
+  padding: 6rem 0;
+}
+
+/* Toast Notifications */
+.poshakh-toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #120A0C;
+  color: #fff;
+  border-left: 4px solid var(--gold-antique);
+  padding: 1rem 1.6rem;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.92rem;
+  animation: slideInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.badge-gold {
+  background: rgba(201, 154, 46, 0.15);
+  color: var(--gold-antique);
+  border: 1px solid var(--gold-antique);
+}
+
+.badge-crimson {
+  background: rgba(179, 18, 45, 0.12);
+  color: var(--crimson-cta);
+  border: 1px solid rgba(179, 18, 45, 0.3);
+}
+
+.badge-green {
+  background: rgba(40, 167, 69, 0.15);
+  color: #1e7e34;
+  border: 1px solid rgba(40, 167, 69, 0.4);
+}
+
+/* Responsive Utilities */
+@media (max-width: 992px) {
+  .container {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+}

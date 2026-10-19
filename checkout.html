@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rental Checkout | POSHAKH Royal Couture</title>
+  <meta name="description" content="Secure Amazon-style rental checkout with doorstep delivery, trial fitting, and refundable deposit protection.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 3rem;
+      padding: 7rem 0 5rem;
+    }
+
+    .payment-option-card {
+      border: 1px solid #D6CEBE;
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      margin-bottom: 0.8rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: #FBF7F0;
+    }
+
+    .payment-option-card:hover, .payment-option-card.selected {
+      border-color: var(--wine-deep);
+      background: #FFF9EE;
+      box-shadow: 0 4px 12px rgba(90, 15, 31, 0.08);
+    }
+
+    .payment-option-card input[type="radio"] {
+      accent-color: var(--wine-deep);
+      width: 18px;
+      height: 18px;
+    }
+
+    .order-summary-sidebar {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-gold);
+      padding: 2.2rem;
+      position: sticky;
+      top: 100px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 992px) {
+      .checkout-layout {
+        grid-template-columns: 1fr;
+        padding-top: 5rem;
+      }
+      .order-summary-sidebar {
+        position: relative;
+        top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Navbar Placeholder -->
+  <div id="poshakh-nav-header"></div>
+
+  <div class="container">
+    <div class="checkout-layout">
+      
+      <!-- LEFT: AMAZON-STYLE CHECKOUT STEPS -->
+      <div>
+        <!-- Step Indicators -->
+        <div class="checkout-steps">
+          <div class="step-node active" id="node-step-1">
+            <div class="step-circle">1</div>
+            <div class="step-label">Delivery Address</div>
+          </div>
+          <div class="step-node" id="node-step-2">
+            <div class="step-circle">2</div>
+            <div class="step-label">Delivery Slot</div>
+          </div>
+          <div class="step-node" id="node-step-3">
+            <div class="step-circle">3</div>
+            <div class="step-label">Payment & Security</div>
+          </div>
+        </div>
+
+        <!-- FORM CONTAINER -->
+        <div class="form-luxury-card">
+          
+          <!-- STEP 1: DELIVERY ADDRESS -->
+          <div id="checkout-step-1">
+            <h2 style="font-size: 1.5rem; color: var(--wine-deep); margin-bottom: 0.4rem;">Select Delivery Address</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.8rem;">
+              Your outfit will arrive in a sanitised protective garment trunk.
+            </p>
+
+            <form id="address-form" onsubmit="handleAddressNext(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Full Name *</label>
+                  <input type="text" id="ship-name" class="form-input" required placeholder="e.g. Manoj Patel">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Contact Number (For Courier OTP) *</label>
+                  <input type="tel" id="ship-phone" class="form-input" required placeholder="+91 98791 22334">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Flat, House no., Building, Apartment *</label>
+                <input type="text" id="ship-street" class="form-input" required placeholder="e.g. 402, Shivalik High Street, Near SG Highway">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Landmark / Area</label>
+                <input type="text" id="ship-landmark" class="form-input" placeholder="e.g. Opposite Iscon Mall, Bodakdev">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">City *</label>
+                  <input type="text" id="ship-city" class="form-input" required value="Ahmedabad">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">State *</label>
+                  <select id="ship-state" class="form-select">
+                    <option value="Gujarat" selected>Gujarat</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Delhi">Delhi NCR</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Pincode *</label>
+                  <input type="text" id="ship-pincode" class="form-input" required placeholder="380054" maxlength="6">
+                </div>
+              </div>
+
+              <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
+                <button type="submit" class="btn btn-gold">
+                  Save Address & Continue &rarr;
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- STEP 2: DELIVERY SLOT & FITTING -->
+          <div id="checkout-step-2" style="display: none;">
+            <h2 style="font-size: 1.5rem; color: var(--wine-deep); margin-bottom: 0.4rem;">Choose Delivery Window</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.8rem;">
+              Complimentary alteration kit and trial assistant arrives with your outfit.
+            </p>
+
+            <div class="payment-option-card selected" onclick="selectSlotRadio('slot1')">
+              <input type="radio" id="slot1" name="delivery_slot" value="Morning (9 AM - 1 PM)" checked>
+              <div>
+                <strong>Morning Delivery (9:00 AM &ndash; 1:00 PM)</strong>
+                <p style="font-size: 0.8rem; color: #666; margin-top: 2px;">Recommended for same-day evening functions.</p>
+              </div>
+            </div>
+
+            <div class="payment-option-card" onclick="selectSlotRadio('slot2')">
+              <input type="radio" id="slot2" name="delivery_slot" value="Evening (4 PM - 8 PM)">
+              <div>
+                <strong>Evening Delivery (4:00 PM &ndash; 8:00 PM)</strong>
+                <p style="font-size: 0.8rem; color: #666; margin-top: 2px;">Comfortable doorstep trial after work hours.</p>
+              </div>
+            </div>
+
+            <div style="margin-top: 2rem; display: flex; justify-content: space-between;">
+              <button type="button" class="btn btn-outline" onclick="goToStep(1)">&larr; Back to Address</button>
+              <button type="button" class="btn btn-gold" onclick="goToStep(3)">Proceed to Payment &rarr;</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: PAYMENT METHOD (FAKE SECURE PAYMENT) -->
+          <div id="checkout-step-3" style="display: none;">
+            <h2 style="font-size: 1.5rem; color: var(--wine-deep); margin-bottom: 0.4rem;">Select Payment Mode</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.8rem;">
+              Your refundable deposit is safely escrowed and credited back upon return pickup.
+            </p>
+
+            <!-- Option 1: Instant UPI -->
+            <div class="payment-option-card selected" onclick="selectPayOption('upi')">
+              <input type="radio" id="pay_upi" name="payment_mode" value="UPI (GPay / PhonePe / Paytm)" checked>
+              <div style="flex-grow: 1;">
+                <strong>Instant UPI / QR (Google Pay, PhonePe, Paytm, BHIM)</strong>
+                <p style="font-size: 0.8rem; color: #666;">Zero transaction fee &bull; Instant instant deposit hold release.</p>
+              </div>
+              <span style="font-size: 1.4rem;">📱</span>
+            </div>
+
+            <!-- Option 2: Credit / Debit Card -->
+            <div class="payment-option-card" onclick="selectPayOption('card')">
+              <input type="radio" id="pay_card" name="payment_mode" value="Credit / Debit Card">
+              <div style="flex-grow: 1;">
+                <strong>Credit / Debit Card (Visa, Mastercard, RuPay)</strong>
+                <p style="font-size: 0.8rem; color: #666;">Pre-authorized security hold &bull; 100% secure.</p>
+              </div>
+              <span style="font-size: 1.4rem;">💳</span>
+            </div>
+
+            <!-- Option 3: Net Banking -->
+            <div class="payment-option-card" onclick="selectPayOption('netbanking')">
+              <input type="radio" id="pay_net" name="payment_mode" value="Net Banking">
+              <div style="flex-grow: 1;">
+                <strong>Net Banking (All Major Indian Banks)</strong>
+                <p style="font-size: 0.8rem; color: #666;">HDFC, ICICI, SBI, Axis, Kotak Mahindra</p>
+              </div>
+              <span style="font-size: 1.4rem;">🏦</span>
+            </div>
+
+            <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center;">
+              <button type="button" class="btn btn-outline" onclick="goToStep(2)">&larr; Back</button>
+              <button type="button" class="btn btn-crimson" onclick="placeRentalOrder()" id="place-order-btn" style="padding: 1rem 2.2rem; font-size: 0.95rem;">
+                CONFIRM &bull; PLACE RENTAL ORDER
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: ORDER SUMMARY SIDEBAR -->
+      <aside>
+        <div class="order-summary-sidebar">
+          <h3 style="font-size: 1.25rem; color: var(--wine-deep); margin-bottom: 1.2rem; border-bottom: 1px solid #f0e8d8; padding-bottom: 0.8rem;">
+            Rental Summary
+          </h3>
+
+          <div style="display: flex; gap: 1rem; margin-bottom: 1.4rem;">
+            <img src="" id="sum-img" alt="Outfit" style="width: 85px; height: 110px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--border-gold);">
+            <div>
+              <h4 id="sum-name" style="font-size: 1rem; color: var(--text-charcoal); margin-bottom: 4px;">Loading...</h4>
+              <span class="badge badge-gold" id="sum-size">Size M</span>
+              <div style="font-size: 0.78rem; color: #777; margin-top: 6px;">
+                Boutique: <strong id="sum-lender" style="color: var(--wine-deep);">Radha Ethnic House</strong>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: #FBF7F0; padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.4rem; font-size: 0.84rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span style="color: #666;">Rental Start:</span>
+              <strong id="sum-start">--</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span style="color: #666;">Return Date:</span>
+              <strong id="sum-end">--</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #666;">Duration:</span>
+              <strong id="sum-days">3 Days</strong>
+            </div>
+          </div>
+
+          <!-- Price Calculation Lines -->
+          <div style="border-top: 1px dashed var(--border-subtle); padding-top: 1rem; font-size: 0.88rem; display: flex; flex-direction: column; gap: 0.6rem;">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #666;">Base Rent (<span id="sum-days-calc">3</span> days)</span>
+              <strong id="sum-rent">₹0</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #666;">Refundable Security Deposit</span>
+              <strong id="sum-deposit" style="color: var(--wine-deep);">₹0</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #666;">Doorstep Delivery & Alteration</span>
+              <strong style="color: #2e7d32;">FREE</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 700; color: var(--wine-deep); border-top: 1px solid #E0D6C3; padding-top: 0.8rem; margin-top: 0.4rem;">
+              <span>Total Payable</span>
+              <span id="sum-total">₹0</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.4rem; padding: 0.8rem; background: #FFF9EE; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); font-size: 0.74rem; color: #777;">
+            🛡️ <strong>Poshakh Escrow Assurance:</strong> Your security deposit is 100% safeguarded and refunded instantly upon return inspection.
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- SUCCESS CONFIRMATION MODAL -->
+  <div class="poshakh-modal-backdrop" id="order-success-modal">
+    <div class="poshakh-modal-dialog" style="text-align: center;">
+      <span style="font-size: 3.5rem;">🎉</span>
+      <h2 style="font-size: 2rem; color: var(--wine-deep); margin: 0.8rem 0 0.4rem;">Rental Confirmed!</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Your royal ensemble has been reserved and your order details dispatched to Radha Ethnic House for packaging.
+      </p>
+
+      <div style="background: #FBF7F0; border-radius: var(--radius-sm); padding: 1.2rem; text-align: left; margin-bottom: 1.8rem; border: 1px dashed var(--border-gold);">
+        <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 6px;">
+          <span>Order Reference:</span>
+          <strong id="confirmed-ord-id" style="color: var(--wine-deep);">ORD-POSH-8821</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 6px;">
+          <span>Estimated Delivery:</span>
+          <strong>Tomorrow by 11:00 AM</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
+          <span>Security Deposit Held:</span>
+          <strong style="color: #2e7d32;" id="confirmed-deposit">₹6,000 (Refundable)</strong>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; justify-content: center;">
+        <a href="rentals.html" class="btn btn-gold">View My Rentals & Countdown &rarr;</a>
+        <a href="shop.html" class="btn btn-outline">Rent Another Outfit</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    let checkoutItem = null;
+    let shippingAddress = {};
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load selected item from session storage or fallback to dress 1
+      const raw = sessionStorage.getItem('poshakh_checkout_item');
+      if (raw) {
+        checkoutItem = JSON.parse(raw);
+      } else {
+        const d = PoshakhStore.getDresses()[0];
+        checkoutItem = {
+          dressId: d.id,
+          dressName: d.name,
+          dressImage: d.images[0],
+          dailyRent: d.rentPrice,
+          deposit: d.deposit,
+          durationDays: 3,
+          totalRent: 3 * d.rentPrice,
+          totalPaid: 3 * d.rentPrice + d.deposit,
+          startDate: '2026-10-18',
+          endDate: '2026-10-21',
+          selectedSize: 'M',
+          lenderId: d.lenderId,
+          lenderName: d.lenderName
+        };
+      }
+
+      // Populate user info if logged in (Manoj)
+      const user = PoshakhStore.getCurrentUser();
+      if (user) {
+        document.getElementById('ship-name').value = user.name || '';
+        document.getElementById('ship-phone').value = user.phone || '+91 98791 22334';
+      }
+
+      // Update sidebar
+      document.getElementById('sum-img').src = checkoutItem.dressImage;
+      document.getElementById('sum-name').textContent = checkoutItem.dressName;
+      document.getElementById('sum-size').textContent = 'Size: ' + (checkoutItem.selectedSize || 'M');
+      document.getElementById('sum-lender').textContent = checkoutItem.lenderName || 'Radha Ethnic House';
+      document.getElementById('sum-start').textContent = checkoutItem.startDate;
+      document.getElementById('sum-end').textContent = checkoutItem.endDate;
+      document.getElementById('sum-days').textContent = `${checkoutItem.durationDays} Days`;
+      document.getElementById('sum-days-calc').textContent = checkoutItem.durationDays;
+      document.getElementById('sum-rent').textContent = `₹${checkoutItem.totalRent.toLocaleString()}`;
+      document.getElementById('sum-deposit').textContent = `₹${checkoutItem.deposit.toLocaleString()}`;
+      document.getElementById('sum-total').textContent = `₹${checkoutItem.totalPaid.toLocaleString()}`;
+    });
+
+    function handleAddressNext(e) {
+      e.preventDefault();
+      shippingAddress = {
+        fullName: document.getElementById('ship-name').value,
+        phone: document.getElementById('ship-phone').value,
+        street: document.getElementById('ship-street').value,
+        landmark: document.getElementById('ship-landmark').value,
+        city: document.getElementById('ship-city').value,
+        state: document.getElementById('ship-state').value,
+        pincode: document.getElementById('ship-pincode').value
+      };
+
+      goToStep(2);
+    }
+
+    function goToStep(step) {
+      [1, 2, 3].forEach(s => {
+        const view = document.getElementById(`checkout-step-${s}`);
+        const node = document.getElementById(`node-step-${s}`);
+        if (view) view.style.display = s === step ? 'block' : 'none';
+        if (node) {
+          node.classList.toggle('active', s === step);
+          node.classList.toggle('completed', s < step);
+        }
+      });
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    function selectSlotRadio(id) {
+      document.querySelectorAll('input[name="delivery_slot"]').forEach(r => {
+        r.checked = (r.id === id);
+        r.closest('.payment-option-card').classList.toggle('selected', r.id === id);
+      });
+    }
+
+    function selectPayOption(type) {
+      const radios = {
+        upi: 'pay_upi',
+        card: 'pay_card',
+        netbanking: 'pay_net'
+      };
+      const radioId = radios[type];
+      document.querySelectorAll('input[name="payment_mode"]').forEach(r => {
+        r.checked = (r.id === radioId);
+        r.closest('.payment-option-card').classList.toggle('selected', r.id === radioId);
+      });
+    }
+
+    function placeRentalOrder() {
+      const user = PoshakhStore.getCurrentUser() || {
+        name: shippingAddress.fullName || 'Manoj Patel',
+        email: 'Manoj34@gmail.com'
+      };
+
+      const payMode = document.querySelector('input[name="payment_mode"]:checked').value;
+      const slot = document.querySelector('input[name="delivery_slot"]:checked').value;
+
+      const orderData = {
+        dressId: checkoutItem.dressId,
+        dressName: checkoutItem.dressName,
+        dressImage: checkoutItem.dressImage,
+        renterEmail: user.email,
+        renterName: user.name,
+        renterPhone: shippingAddress.phone || '+91 98791 22334',
+        lenderId: checkoutItem.lenderId || 'radha',
+        lenderName: checkoutItem.lenderName || 'Radha Ethnic House',
+        startDate: checkoutItem.startDate,
+        endDate: checkoutItem.endDate,
+        durationDays: checkoutItem.durationDays,
+        dailyRent: checkoutItem.dailyRent,
+        totalRent: checkoutItem.totalRent,
+        deposit: checkoutItem.deposit,
+        totalPaid: checkoutItem.totalPaid,
+        deliverySlot: slot,
+        deliveryAddress: shippingAddress,
+        paymentMethod: payMode
+      };
+
+      const created = PoshakhStore.createOrder(orderData);
+
+      // Show success modal
+      document.getElementById('confirmed-ord-id').textContent = created.id;
+      document.getElementById('confirmed-deposit').textContent = `₹${checkoutItem.deposit.toLocaleString()} (Refundable)`;
+      document.getElementById('order-success-modal').classList.add('show');
+    }
+  </script>
+</body>
+</html>

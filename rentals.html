@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Rentals & Orders | POSHAKH Royal Couture</title>
+  <meta name="description" content="Track your active couture rentals, return pickup countdown timer, and security deposit refund status.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .rentals-container {
+      padding: 7rem 0 5rem;
+    }
+
+    .rental-order-card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-gold);
+      padding: 2.2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: 140px 1.5fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .countdown-widget {
+      background: #120A0C;
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      text-align: center;
+      border: 1px solid var(--gold-antique);
+    }
+
+    .countdown-timer-digits {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin: 6px 0;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 900px) {
+      .rental-order-card {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Navbar Placeholder -->
+  <div id="poshakh-nav-header"></div>
+
+  <div class="container rentals-container">
+    
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="eyebrow">YOUR ROYAL WARDROBE</span>
+        <h1 style="font-size: 2.6rem; color: var(--wine-deep);">My Rentals & History</h1>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">
+          Track live return timers, security deposit releases, and return pickup logistics.
+        </p>
+      </div>
+
+      <a href="shop.html" class="btn btn-gold">+ Rent Another Outfit</a>
+    </div>
+
+    <!-- Active Orders Section -->
+    <div id="orders-list">
+      <!-- Populated dynamically via JS -->
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Require auth
+      const user = PoshakhStore.getCurrentUser();
+      if (!user) {
+        window.location.href = 'login.html?redirect=rentals.html';
+        return;
+      }
+
+      // Admin does NOT have personal rental history
+      if (user.role === 'admin') {
+        const container = document.getElementById('orders-list');
+        if (container) {
+          container.innerHTML = `
+            <div style="background: #fff; border-radius: var(--radius-md); padding: 4rem 2rem; text-align: center; border: 1px dashed var(--gold-antique); max-width: 650px; margin: 2rem auto;">
+              <span style="font-size: 3.5rem;">🛡️</span>
+              <h2 style="font-size: 1.6rem; color: var(--wine-deep); margin: 1rem 0 0.5rem;">Super Admin Oversight</h2>
+              <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                Admin accounts oversee platform transactions, security deposits, and boutique moderation. Administrators do not maintain personal rental histories.
+              </p>
+              <a href="admin.html" class="btn btn-gold">Open Admin Control Portal &rarr;</a>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      renderUserOrders(user.email);
+    });
+
+    function renderUserOrders(email) {
+      const orders = PoshakhStore.getUserOrders(email);
+      const container = document.getElementById('orders-list');
+
+      if (!container) return;
+
+      if (orders.length === 0) {
+        container.innerHTML = `
+          <div style="background: #fff; border-radius: var(--radius-md); padding: 4rem 2rem; text-align: center; border: 1px dashed var(--border-gold);">
+            <span style="font-size: 3rem;">👗</span>
+            <h3 style="font-size: 1.5rem; color: var(--wine-deep); margin-top: 1rem;">No Active Rentals Yet</h3>
+            <p style="color: var(--text-muted); margin: 0.5rem 0 1.5rem;">Explore our royal collection of Gujarati Patolas, Lehengas, and Sherwanis.</p>
+            <a href="shop.html" class="btn btn-crimson">Browse Outfits</a>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = orders.map((ord, idx) => {
+        const isActive = ord.status.includes('Active');
+        
+        return `
+          <div class="rental-order-card">
+            <!-- Outfit Image -->
+            <div style="height: 180px; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border-subtle);">
+              <img src="${ord.dressImage}" alt="${ord.dressName}" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+
+            <!-- Details -->
+            <div>
+              <div style="display: flex; gap: 8px; margin-bottom: 6px;">
+                <span class="badge ${isActive ? 'badge-green' : 'badge-gold'}">${ord.status}</span>
+                <span class="badge badge-gold">Ref #${ord.id}</span>
+              </div>
+              <h2 style="font-size: 1.35rem; color: var(--wine-deep); margin-bottom: 6px;">${ord.dressName}</h2>
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Boutique: <a href="lender-profile.html?lender=${ord.lenderId}" style="color: var(--wine-deep); font-weight: 600; text-decoration: underline;">${ord.lenderName}</a>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.82rem; background: #FAF5EB; padding: 0.8rem 1rem; border-radius: var(--radius-sm);">
+                <div>
+                  <span style="color: #666; display: block;">Rental Duration:</span>
+                  <strong>${ord.startDate} to ${ord.endDate} (${ord.durationDays} Days)</strong>
+                </div>
+                <div>
+                  <span style="color: #666; display: block;">Security Deposit:</span>
+                  <strong style="color: #2e7d32;">₹${ord.deposit.toLocaleString()} (${ord.depositRefunded ? 'Refunded' : 'Held Safe in Escrow'})</strong>
+                </div>
+              </div>
+
+              <div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                <button onclick="downloadInvoice('${ord.id}')" class="btn btn-outline" style="padding: 0.45rem 1rem; font-size: 0.76rem;">
+                  📄 Download Receipt
+                </button>
+                <a href="chat.html?lender=${ord.lenderId}&dressId=${ord.dressId}" class="btn btn-outline" style="padding: 0.45rem 1rem; font-size: 0.76rem;">
+                  💬 Contact Lender
+                </a>
+              </div>
+            </div>
+
+            <!-- Live Return Countdown Timer or Action -->
+            <div>
+              ${isActive ? `
+                <div class="countdown-widget">
+                  <span style="font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-light);">
+                    ⏳ Return Pickup Timer
+                  </span>
+                  <div class="countdown-timer-digits" id="timer-${ord.id}">
+                    02d : 14h : 28m
+                  </div>
+                  <span style="font-size: 0.72rem; color: #ccc;">
+                    Executive pickup: ${ord.endDate}, 5:00 PM
+                  </span>
+                  <button onclick="requestReturnPickup('${ord.id}')" class="btn btn-gold" style="width: 100%; margin-top: 1rem; padding: 0.55rem 0.8rem; font-size: 0.74rem;">
+                    Schedule Early Pickup
+                  </button>
+                </div>
+              ` : `
+                <div style="background: #F8F9FA; padding: 1.4rem; border-radius: var(--radius-sm); text-align: center; border: 1px solid #ddd;">
+                  <span style="font-size: 1.8rem;">✨</span>
+                  <h4 style="font-size: 0.95rem; color: #333; margin: 4px 0;">Rental Completed</h4>
+                  <p style="font-size: 0.75rem; color: #666; margin-bottom: 0.8rem;">Deposit ₹${ord.deposit.toLocaleString()} credited back to source account.</p>
+                  <a href="product.html?id=${ord.dressId}" class="btn btn-gold" style="padding: 0.5rem 1rem; font-size: 0.75rem; width: 100%;">Rent Again</a>
+                </div>
+              `}
+            </div>
+
+          </div>
+        `;
+      }).join('');
+
+      // Start live countdown interval
+      startLiveTimers();
+    }
+
+    function startLiveTimers() {
+      setInterval(() => {
+        const timerEls = document.querySelectorAll('[id^="timer-"]');
+        timerEls.forEach(el => {
+          const now = new Date();
+          const target = new Date();
+          target.setDate(now.getDate() + 2);
+          target.setHours(18, 0, 0);
+
+          const diff = target - now;
+          if (diff > 0) {
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % 1000) / 1000);
+            el.textContent = `${days}d : ${hours}h : ${mins}m`;
+          }
+        });
+      }, 1000);
+    }
+
+    function downloadInvoice(ordId) {
+      PoshakhUI.toast(`Invoice for ${ordId} generated and downloaded successfully!`, 'success');
+    }
+
+    function requestReturnPickup(ordId) {
+      PoshakhUI.toast(`Pickup executive notified for Order #${ordId}. Tamper-proof bag ready.`, 'gold');
+    }
+  </script>
+</body>
+</html>
