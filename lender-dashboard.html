@@ -31,6 +31,28 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1.4rem;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-wrapper {
+        padding: 4.8rem 0 3rem;
+      }
+      .dashboard-welcome-banner {
+        padding: 1.4rem 1rem !important;
+      }
+      .dashboard-welcome-banner h1 {
+        font-size: 1.6rem !important;
+      }
+      .dashboard-welcome-banner div[style*="display: flex; gap: 1rem"] {
+        flex-direction: column;
+        width: 100%;
+      }
+      .dashboard-welcome-banner .btn {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -42,7 +64,7 @@
   <div class="container dashboard-wrapper">
     
     <!-- Top Welcome Banner (Dynamically Bound to Active Lender) -->
-    <div style="background: linear-gradient(135deg, #5A0F1F 0%, #120A0C 100%); color: #fff; border-radius: var(--radius-lg); padding: 2.5rem; margin-bottom: 2.5rem; border: 1px solid var(--gold-antique); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; box-shadow: var(--shadow-lg);">
+    <div class="dashboard-welcome-banner" style="background: linear-gradient(135deg, #5A0F1F 0%, #120A0C 100%); color: #fff; border-radius: var(--radius-lg); padding: 2.5rem; margin-bottom: 2.5rem; border: 1px solid var(--gold-antique); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; box-shadow: var(--shadow-lg);">
       <div style="display: flex; align-items: center; gap: 1.4rem;">
         <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt="Boutique Owner" id="dash-lender-avatar" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold-antique);">
         <div>

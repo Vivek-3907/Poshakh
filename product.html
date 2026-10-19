@@ -137,17 +137,56 @@
       letter-spacing: 0.8px;
     }
 
+    .trust-badges-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
     @media (max-width: 992px) {
       .product-detail-layout {
         grid-template-columns: 1fr;
-        padding-top: 5rem;
+        padding-top: 4.8rem;
       }
       .gallery-stage {
         position: relative;
         top: 0;
       }
       .main-image-viewport {
-        height: 440px;
+        height: 420px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .product-detail-layout {
+        padding-top: 4.2rem;
+        gap: 1.5rem;
+      }
+      .main-image-viewport {
+        height: 330px;
+      }
+      .thumb-btn {
+        width: 65px;
+        height: 90px;
+      }
+      .trust-badges-grid {
+        grid-template-columns: 1fr;
+        gap: 0.7rem;
+      }
+      .rental-booking-card {
+        padding: 1.2rem 1rem;
+      }
+      .date-picker-row {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
+      .specs-list li {
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+      .specs-label {
+        min-width: unset;
       }
     }
   </style>
@@ -220,7 +259,7 @@
           </div>
 
           <!-- Trust Badges -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+          <div class="trust-badges-grid">
             <div style="background: #fff; padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); display: flex; align-items: center; gap: 0.8rem;">
               <span style="font-size: 1.6rem;">🧼</span>
               <div>

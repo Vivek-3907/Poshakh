@@ -194,13 +194,22 @@ const PoshakhUI = {
 
   setupMobileMenu() {
     document.addEventListener('click', (e) => {
-      if (e.target && e.target.id === 'mobile-toggle-btn') {
+      const toggleBtn = e.target && e.target.closest('#mobile-toggle-btn');
+      if (toggleBtn) {
         const drawer = document.getElementById('mobile-drawer');
         if (drawer) drawer.classList.add('open');
+        return;
       }
-      if (e.target && e.target.id === 'close-mobile-drawer') {
+      const closeBtn = e.target && e.target.closest('#close-mobile-drawer');
+      if (closeBtn) {
         const drawer = document.getElementById('mobile-drawer');
         if (drawer) drawer.classList.remove('open');
+        return;
+      }
+      // Close drawer if clicking outside drawer
+      const drawer = document.getElementById('mobile-drawer');
+      if (drawer && drawer.classList.contains('open') && !drawer.contains(e.target)) {
+        drawer.classList.remove('open');
       }
     });
   },

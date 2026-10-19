@@ -151,10 +151,12 @@
     @media (max-width: 992px) {
       .featured-showcase-grid {
         grid-template-columns: 1fr;
+        padding: 2rem 1.5rem;
       }
       .showcase-thumbs {
         flex-direction: row;
         justify-content: center;
+        flex-wrap: wrap;
       }
       .floating-tilt-card {
         position: relative;
@@ -162,6 +164,32 @@
         top: auto;
         transform: none;
         margin: 2rem auto 0;
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .featured-showcase-grid {
+        padding: 1.5rem 1rem;
+        gap: 1.2rem;
+      }
+      .showcase-main-stage {
+        height: 360px;
+      }
+      .showcase-thumb-item {
+        width: 65px;
+        height: 85px;
+      }
+      .floating-tilt-card {
+        width: 100%;
+        max-width: 280px;
+        height: 380px;
+      }
+      .giant-statement-text {
+        font-size: clamp(2.6rem, 10vw, 4.2rem);
+      }
+      .trends-banner-section {
+        padding: 3.5rem 0;
       }
     }
   </style>
@@ -283,7 +311,7 @@
 
   <section class="section-dark" id="bridal-section">
     <div class="container">
-      <div style="display: grid; grid-template-columns: 1fr 1.6fr; gap: 3.5rem; align-items: center;">
+      <div class="bridal-editorial-grid">
         
         <!-- Left Editorial Photo (Clean, Grand Framed Display) -->
         <div>
@@ -472,7 +500,7 @@
   <!-- SECTION 8: "LATEST TRENDS" (GIANT BOLD CONDENSED TEXT OVER PASTEL WITH FLOATING TILTED CARD) -->
   <section class="trends-banner-section">
     <div class="container" style="position: relative;">
-      <div style="max-width: 65%;">
+      <div class="trends-statement-col">
         <span class="eyebrow" style="color: var(--crimson-cta);">SEASONAL STATEMENT</span>
         <div class="giant-statement-text">
           LATEST<br>
@@ -497,7 +525,7 @@
   <!-- SECTION 9: FOOTER (LOGO, COLUMNS, DUPATTA IMAGE BANNER) -->
   <footer style="background: #0E0709; color: #FAF5EB; padding-top: 5rem; position: relative;">
     <div class="container" style="margin-bottom: 4rem;">
-      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 3rem;">
+      <div class="footer-grid">
         
         <!-- Brand Info -->
         <div>

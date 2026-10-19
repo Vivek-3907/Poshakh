@@ -60,6 +60,22 @@
         top: 0;
       }
     }
+
+    @media (max-width: 576px) {
+      .checkout-layout {
+        padding-top: 4.5rem;
+      }
+      .order-summary-sidebar {
+        padding: 1.4rem 1.1rem;
+      }
+      .checkout-layout div[style*="background: #ffffff"] {
+        padding: 1.4rem 1.1rem !important;
+      }
+      .checkout-layout div[style*="display: grid; grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 0.8rem !important;
+      }
+    }
   </style>
 </head>
 <body>

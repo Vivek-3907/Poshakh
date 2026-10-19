@@ -149,7 +149,7 @@
                 Boutique: <a href="lender-profile.html?lender=${ord.lenderId}" style="color: var(--wine-deep); font-weight: 600; text-decoration: underline;">${ord.lenderName}</a>
               </div>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.82rem; background: #FAF5EB; padding: 0.8rem 1rem; border-radius: var(--radius-sm);">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; font-size: 0.82rem; background: #FAF5EB; padding: 0.8rem 1rem; border-radius: var(--radius-sm);">
                 <div>
                   <span style="color: #666; display: block;">Rental Duration:</span>
                   <strong>${ord.startDate} to ${ord.endDate} (${ord.durationDays} Days)</strong>
